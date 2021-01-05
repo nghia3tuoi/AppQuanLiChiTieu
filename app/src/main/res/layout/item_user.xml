@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="userItem"
+            type="com.uit.quanlychitieu.model.UserModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUserItem"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar"
+            bind:imageBitmap="@{userItem.bitmap}"
+            android:transitionName="imgUser" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txtDisplayNameItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|left"
+                android:paddingLeft="20dp"
+                android:text="@={userItem.displayName}"
+                android:textColor="@color/grey_dam"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/txtUserNameItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:text="@={userItem.userName}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

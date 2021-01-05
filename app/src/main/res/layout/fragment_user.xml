@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.user.UserFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitleUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:gravity="center|left"
+            android:text="@string/title_user_info"
+            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:transitionName="imgUser"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:id="@+id/txtDisplayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center|left"
+                    android:text="@string/display_user_name_sample"
+                    android:transitionName="txtDisplayName"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="25dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtTitleDisplayName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:text="@string/title_user_name" />
+                    <TextView
+                        android:paddingLeft="5dp"
+                        android:id="@+id/txtUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:transitionName="txtUserName"
+                        android:gravity="center|left"
+                        android:text="@string/user_sample"/>
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtTitleDateAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center|left"
+                        android:text="@string/title_date_add"/>
+                    <TextView
+                        android:paddingLeft="5dp"
+                        android:id="@+id/txtDateAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_weight="4"
+                        android:gravity="center|left"
+                        android:text="@string/date_add_sample"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/btnEditInfo"
+                android:background="@drawable/button_background"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="left|center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="@string/edit_user"
+                android:textColor="@color/colorTitle" />
+
+            <Button
+                android:id="@+id/btnRemoveUser"
+                android:background="@drawable/button_background"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="@string/remove_user"
+                android:textColor="@color/colorTitle" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitleListUser"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center|left"
+                android:padding="10dp"
+                android:text="@string/title_list_user"
+                android:textColor="@color/colorPrimary"/>
+
+            <ListView
+                android:id="@+id/lsvUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".ui.user.UserFragment">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txtUser"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="Hello"-->
+<!--        android:gravity="center"-->
+<!--        android:textSize="26dp"/>-->
+
+<!--</FrameLayout>-->

@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">Quản lý chi tiêu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="toolbar_title">Quản lý chi tiêu</string>
+    <string name="title_spending_manage">Quản lý chi tiêu</string>
+    <string name="menu_expense">Chi tiêu</string>
+    <string name="menu_income">Thu nhập</string>
+    <string name="menu_statistics">Thống kê</string>
+    <string name="title_backup_and_restore">Dữ liệu</string>
+    <string name="menu_backup">Sao lưu</string>
+    <string name="menu_restore">Khôi phục</string>
+    <string name="menu_settings">Cài đặt</string>
+    <string name="menu_user">Người dùng</string>
+    <string name="menu_category_spending">Quản lý danh mục</string>
+    <string name="currcency">Đơn vị tiền tệ</string>
+    <string name="currcency_description">Lựa chọn đơn vị tiền tệ của bạn</string>
+    <string name="reminder">Thông báo nhắc nhở</string>
+    <string name="reminder_description">Nhắc bạn thêm các khoản thu, chi mỗi ngày</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="language_description">Lựa chọn ngôn ngữ của bạn</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="copy_success">Sao chép dữ liệu thành công</string>
+    <string name="ad_title">Quảng cáo trong ứng dụng</string>
+    <string name="ad_description">Xem quảng cáo để hỗ trợ chúng tôi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="categoty_name">Tên danh mục</string>
+    <string name="date_time_sample">01-01-2020</string>
+    <string name="note">Ghi chú</string>
+    <string name="money_expense_sample">- 10.000 VNĐ</string>
+    <string name="money_income_sample">+ 10.000 VNĐ</string>
+    <string name="no_category">Không có danh mục</string>
+    <string name="expense_title">Quản lí chi tiêu</string>
+    <string name="income_title">Quản lí thu nhập</string>
+    <string name="statistics_title">Thống kê</string>
+    <string name="backup_title">Sao lưu</string>
+    <string name="backup_and_restore_title">Sao lưu và khôi phục</string>
+    <string name="restore_title">Khôi phục</string>
+    <string name="user_title">Người dùng</string>
+    <string name="add_expense_title">Thêm chi tiêu</string>
+    <string name="add_income_title">Thêm thu nhập</string>
+    <string name="caterogy_title">Quản lí danh mục</string>
+
+    <!--    Màn hình Người dùng-->
+    <string name="title_user_info">Thông tin người dùng</string>
+    <string name="display_user_name_sample">Đinh Văn Cơ</string>
+    <string name="user_sample">dinhco01</string>
+    <string name="date_add_sample">01-01-2021</string>
+    <string name="remove_user">Xóa người dùng</string>
+    <string name="change_info">Chỉnh sửa thông tin</string>
+    <string name="title_list_user">Danh sách người dùng</string>
+    <string name="title_user_name">Tên đăng nhập: </string>
+    <string name="title_date_add">Ngày thêm: </string>
+    <string name="title_date_modify">Ngày sửa đổi: </string>
+    <string name="no_user">Chưa có người dùng nào!</string>
+    <string name="edit_user">Chỉnh sửa thông tin</string>
+    <string name="user_info">Thông tin người dùng</string>
+
+    <string name="avartar">Ảnh đại diện</string>
+    <string name="user_name">Tên đăng nhập</string>
+    <string name="user_display_name">Tên người dùng</string>
+    <string name="email">Email</string>
+    <string name="email_sample">1952293@gm.uit.edu.vn</string>
+    <string name="change_password">Đổi mật khẩu</string>
+
+    <string name="category_expense">Danh mục chi tiêu</string>
+    <string name="category_income">Danh mục thu nhập</string>
+    <string name="money_expense">Số tiền chi</string>
+    <string name="money_income">Số tiền thu</string>
+    <string name="date">Ngày tháng</string>
+    <string name="time">Thời gian</string>
+    <string name="unit_currency">VNĐ</string>
+</resources>

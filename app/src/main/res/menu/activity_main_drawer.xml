@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_expense"
+            android:icon="@drawable/ic_baseline_expense_24"
+            android:title="@string/menu_expense" />
+        <item
+            android:id="@+id/nav_income"
+            android:icon="@drawable/ic_baseline_income_24"
+            android:title="@string/menu_income" />
+        <item
+            android:id="@+id/nav_statistic"
+            android:icon="@drawable/ic_baseline_statistics_24"
+            android:title="@string/menu_statistics" />
+    </group>
+
+    <item android:title="@string/title_backup_and_restore">
+        <menu>
+            <item
+                android:id="@+id/nav_user"
+                android:title="@string/menu_user"
+                android:icon="@drawable/ic_baseline_user_24"/>
+            <item
+                android:id="@+id/nav_backup_and_restore"
+                android:icon="@drawable/ic_baseline_backup_24"
+                android:title="@string/backup_and_restore_title" />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_category_spending"
+                android:title="@string/menu_category_spending"
+                android:icon="@drawable/ic_baseline_categorys_24"/>
+            <item
+                android:id="@+id/nav_settings"
+                android:title="@string/menu_settings"
+                android:icon="@drawable/ic_baseline_settings_24"/>
+        </menu>
+    </item>
+</menu>

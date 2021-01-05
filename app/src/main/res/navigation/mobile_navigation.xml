@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_expense">
+
+    <fragment
+        android:id="@+id/nav_expense"
+        android:name="com.uit.quanlychitieu.ui.expense.ExpenseFragment"
+        android:label="@string/menu_expense"
+        tools:layout="@layout/fragment_expense" />
+
+    <fragment
+        android:id="@+id/nav_income"
+        android:name="com.uit.quanlychitieu.ui.income.IncomeFragment"
+        android:label="@string/menu_income"
+        tools:layout="@layout/fragment_income" />
+
+    <fragment
+        android:id="@+id/nav_statistic"
+        android:name="com.uit.quanlychitieu.ui.statistic.StatisticFragment"
+        android:label="@string/menu_statistics"
+        tools:layout="@layout/fragment_statistic" />
+
+    <fragment
+        android:id="@+id/nav_user"
+        android:name="com.uit.quanlychitieu.ui.user.UserFragment"
+        android:label="@string/menu_user"
+        tools:layout="@layout/fragment_user" />
+
+    <fragment
+        android:id="@+id/nav_backup_and_restore"
+        android:name="com.uit.quanlychitieu.ui.backupandrestore.BackupAndRestoreFragment"
+        android:label="@string/backup_and_restore_title"
+        tools:layout="@layout/fragment_backup_and_restore" />
+
+    <fragment
+        android:id="@+id/nav_category_spending"
+        android:name="com.uit.quanlychitieu.ui.category.CategoryFragment"
+        android:label="@string/caterogy_title"
+        tools:layout="@layout/fragment_category" />
+</navigation>

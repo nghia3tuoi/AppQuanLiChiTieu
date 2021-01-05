@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="8"
+    tools:context=".ui.statistic.category_statistic.CategoryStatisticFragment">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:layout_above="@+id/seekBar1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:gravity="center"
+        android:layout_weight="1">
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/seekBar2"
+            android:layout_toLeftOf="@+id/tvXMax"
+            android:layout_weight="4"
+            android:layout_marginRight="5dp"
+            android:max="25"
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvXMax"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="-"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </LinearLayout>
+
+</LinearLayout>

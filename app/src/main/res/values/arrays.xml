@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <string-array name="currency_list">
+      <item>VNĐ</item>
+      <item>USD</item>
+      <item>CNY</item>
+   </string-array>
+
+   <string-array name="language_list">
+      <item>Tiếng Việt</item>
+      <item>English</item>
+   </string-array>
+
+</resources>

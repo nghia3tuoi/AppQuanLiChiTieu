@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+   xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <ListPreference
+      android:entries="@array/language_list"
+      android:entryValues="@array/language_list"
+      android:key="pref_language"
+      android:title="@string/language"
+      android:summary="@string/language_description"
+      android:persistent="true"
+      android:defaultValue="@string/vietnamese"/>
+    <SwitchPreference
+        android:key="switch_reminder"
+        android:title="@string/reminder"
+        android:summary="@string/reminder_description"/>
+    <SwitchPreference
+        android:key="switch_advertise"
+        android:title="@string/ad_title"
+        android:summary="@string/ad_description"/>
+</PreferenceScreen>
