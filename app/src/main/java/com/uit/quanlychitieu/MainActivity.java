@@ -2,8 +2,10 @@ package com.uit.quanlychitieu;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -20,6 +23,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableArrayList;
@@ -45,6 +49,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.uit.quanlychitieu.adapter.ExpenseItemAdapter;
 import com.uit.quanlychitieu.model.CategoryModel;
 import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.IncomeModel;
@@ -68,7 +73,7 @@ import java.util.Observable;
 public class MainActivity extends AppCompatActivity {
 
     // Người dùng đăng nhập hiện tại
-    public static int USER_ID = 2;
+    public static int USER_ID = 1;
 
     // Tên cở sở dữ liệu
     public static String DATABASE_NAME = "QuanLyChiTieu.db";
@@ -85,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Các control trên màn hình chính
     private NavigationView navigationView;
-    private FloatingActionButton fab;
-    private int fragmentCurrent = -1;
+    FloatingActionButton fab;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -142,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(clickFabButton);
+        fab.hide();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -183,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                         currentFragment = -1;
                         break;
                 }
-                if (currentFragment == 0 | currentFragment == 1 | currentFragment == 2 | currentFragment == 3) {
+                if (currentFragment == 2) {
                     fab.show();
                 } else {
                     fab.hide();
@@ -201,13 +206,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         showDialogQuestionCloseApp();
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_ok_cancel, menu);
-//        return true;
-//    }
 
     private final View.OnClickListener clickFabButton = new View.OnClickListener() {
         @Override
@@ -215,9 +213,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (currentFragment) {
                 case 0:
+                    fab.hide();
                     openAddExpenseDialog();
                     break;
                 case 1:
+                    fab.hide();
                     openAddIncomeDialog();
                     break;
                 case 2:
@@ -225,7 +225,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intentAddUser);
                     break;
                 case 3:
-                    openAddCategoryDialog(false);
+                    fab.hide();
+                    //openAddCategoryDialog(false);
                     break;
             }
         }
@@ -647,56 +648,5 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void openAddCategoryDialog(Boolean isAddExpense) {
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_add_category);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
 
-        Window window = dialog.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        final TextView txtTitleDialog = dialog.findViewById(R.id.txtTitleDialog);
-        final TextView txtTitleCategoryName = dialog.findViewById(R.id.txtTitleCategoryName);
-        final EditText edtNameCategory = dialog.findViewById(R.id.edtNameCategory);
-        final EditText edtDescription = dialog.findViewById(R.id.edtDescription);
-        final Button btnAdd = dialog.findViewById(R.id.btnAdd);
-        final Button btnBack = dialog.findViewById(R.id.btnBack);
-
-        if (isAddExpense) {
-            txtTitleDialog.setText("THÊM LOẠI CHI");
-            txtTitleCategoryName.setText("Tên loại chi");
-            edtNameCategory.setHint("Mua sắm");
-            edtDescription.setHint("Số tiền dùng cho việc mua sắm");
-        } else {
-            txtTitleDialog.setText("THÊM LOẠI THU");
-            txtTitleCategoryName.setText("Tên loại thu");
-            edtNameCategory.setHint("Bán hàng");
-            edtDescription.setHint("Số tiền thu được từ việc bán hàng");
-        }
-
-
-        //Đóng cửa sổ dialog
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        //Thêm khoản chi và đóng cửa sổ dialog
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Thêm khoản chi tiêu
-                dialog.dismiss();
-                Toast.makeText(MainActivity.this, "Đang thêm loại thu...", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        dialog.show();
-    }
 }

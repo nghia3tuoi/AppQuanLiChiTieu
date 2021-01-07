@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.databinding.ItemIncomeBinding;
+//import com.uit.quanlychitieu.databinding.ItemIncomeBinding;
 import com.uit.quanlychitieu.model.IncomeModel;
 
 
@@ -22,7 +22,7 @@ public class IncomeAdapter extends ArrayAdapter<IncomeModel> {
     private ObservableList<IncomeModel> dataSet;
     private Context context;
 
-    private ItemIncomeBinding binding;
+    //private ItemIncomeBinding binding;
 
     public IncomeAdapter(ObservableList<IncomeModel> data, Context context) {
         super(context, R.layout.item_income, data);
@@ -39,8 +39,9 @@ public class IncomeAdapter extends ArrayAdapter<IncomeModel> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_income, parent, false);
-        binding.setIncomeItem(getItem(position));
-        return binding.getRoot();
+//        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_income, parent, false);
+//        binding.setIncomeItem(getItem(position));
+//        return binding.getRoot();
+        return null;
     }
 }

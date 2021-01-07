@@ -29,6 +29,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.uit.quanlychitieu.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener {
@@ -60,8 +61,9 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
         tvX.setTextSize(10);
         tvY = view.findViewById(R.id.tvYMax);
 
+
         seekBarX = view.findViewById(R.id.seekBar1);
-        seekBarX.setMax(50);
+        seekBarX.setMax(12);
         seekBarX.setOnSeekBarChangeListener(this);
 
         seekBarY = view.findViewById(R.id.seekBar2);
@@ -81,12 +83,6 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
 
         chart.setDrawGridBackground(false);
 
-        // create a custom MarkerView (extend MarkerView) and specify the layout
-        // to use for it
-//        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
-//        mv.setChartView(chart); // For bounds control
-//        chart.setMarker(mv); // Set the marker to the chart
-
         seekBarX.setProgress(10);
         seekBarY.setProgress(100);
 
@@ -99,12 +95,14 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
         l.setYOffset(0f);
         l.setXOffset(10f);
         l.setYEntrySpace(0f);
-        l.setTextSize(8f);
+        l.setTextSize(10f);
 
         XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(tfLight);
         xAxis.setGranularity(1f);
         xAxis.setCenterAxisLabels(true);
+
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -119,6 +117,27 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
+        final List<String> xLabel = new ArrayList<>();
+        xLabel.add("Tháng 1");
+        xLabel.add("Tháng 2");
+        xLabel.add("Tháng 3");
+        xLabel.add("Tháng 4");
+        xLabel.add("Tháng 5");
+        xLabel.add("Tháng 6");
+        xLabel.add("Tháng 7");
+        xLabel.add("Tháng 8");
+        xLabel.add("Tháng 9");
+        xLabel.add("Tháng 10");
+        xLabel.add("Tháng 11");
+        xLabel.add("Tháng 12");
+
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return xLabel.get((int) value % xLabel.size());
+            }
+        });
+
         chart.getAxisRight().setEnabled(false);
 
         return view;
@@ -127,74 +146,63 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        float groupSpace = 0.08f;
-        float barSpace = 0.03f; // x4 DataSet
-        float barWidth = 0.2f; // x4 DataSet
+        float groupSpace = 0.16f;
+        float barSpace = 0.06f; // x4 DataSet
+        float barWidth = 0.4f; // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
 
-        int groupCount = seekBarX.getProgress() + 1;
-        int startYear = 1980;
+        int groupCount = seekBarX.getProgress();
+        int startYear = 2000;
         int endYear = startYear + groupCount;
 
-        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
+        tvX.setText(progress + " tháng");
         tvY.setText(String.valueOf(seekBarY.getProgress()));
 
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
-        ArrayList<BarEntry> values3 = new ArrayList<>();
-        ArrayList<BarEntry> values4 = new ArrayList<>();
 
         float randomMultiplier = seekBarY.getProgress() * 100000f;
 
         for (int i = startYear; i < endYear; i++) {
             values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
             values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
         }
 
-        BarDataSet set1, set2, set3, set4;
+        BarDataSet set1, set2;
 
         if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
 
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
             set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
-            set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
-            set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
             set1.setValues(values1);
             set2.setValues(values2);
-            set3.setValues(values3);
-            set4.setValues(values4);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
 
         } else {
-            // create 4 DataSets
-            set1 = new BarDataSet(values1, "Company A");
+            set1 = new BarDataSet(values1, "Thu nhập");
             set1.setColor(Color.rgb(104, 241, 175));
-            set2 = new BarDataSet(values2, "Company B");
-            set2.setColor(Color.rgb(164, 228, 251));
-            set3 = new BarDataSet(values3, "Company C");
-            set3.setColor(Color.rgb(242, 247, 158));
-            set4 = new BarDataSet(values4, "Company D");
-            set4.setColor(Color.rgb(255, 102, 0));
+            set2 = new BarDataSet(values2, "Chi tiêu");
+            set2.setColor(Color.rgb(255, 102, 0));
 
-            BarData data = new BarData(set1, set2, set3, set4);
+            BarData data = new BarData(set1, set2);
             data.setValueFormatter(new LargeValueFormatter());
             data.setValueTypeface(tfLight);
 
             chart.setData(data);
         }
 
-        // specify the width each bar should have
         chart.getBarData().setBarWidth(barWidth);
 
-        // restrict the x-axis range
         chart.getXAxis().setAxisMinimum(startYear);
 
-        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
+        int v = (int) (startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
+
+        chart.getXAxis().setAxisMaximum(v);
         chart.groupBars(startYear, groupSpace, barSpace);
+
+        chart.animateY(2000);
+
         chart.invalidate();
     }
 

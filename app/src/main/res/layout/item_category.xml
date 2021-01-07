@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:clickable="true"
+    android:longClickable="true"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/imgCategory"
@@ -28,16 +33,17 @@
             android:textColor="@color/grey_dam"
             android:layout_weight="1"
             android:text="Ăn uống"/>
+
         <TextView
             android:id="@+id/txtCategoryDesciption"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="14dp"
-            android:paddingLeft="20dp"
-            android:gravity="top|left"
             android:layout_weight="1"
+            android:gravity="top|left"
+            android:paddingLeft="20dp"
             android:text="Số tiền chi tiêu cho việc ăn uống hằng ngày"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14dp" />
     </LinearLayout>
 
 </LinearLayout>

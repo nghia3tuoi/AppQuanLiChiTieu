@@ -19,21 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.uit.quanlychitieu.EditUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.UserInfoActivity;
-import com.uit.quanlychitieu.adapter.ExpenseAdapter;
 import com.uit.quanlychitieu.adapter.UserAdapter;
 import com.uit.quanlychitieu.model.UserModel;
-import com.uit.quanlychitieu.ui.category.CategoryViewModel;
 
 import java.io.File;
 import java.io.FileOutputStream;

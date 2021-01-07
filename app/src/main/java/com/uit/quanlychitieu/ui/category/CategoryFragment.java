@@ -28,26 +28,15 @@ public class CategoryFragment extends Fragment {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private TabLayout tabLayout;
 
-    private Activity activity;
-
-
     private CategoryViewModel mViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CategoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_category, container, false);
-//        final TextView textView = root.findViewById(R.id.txtcategory);
-//        mViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
-        activity = (Activity) root.getContext();
         sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+
         viewPager = root.findViewById(R.id.container);
         viewPager.setAdapter(sectionsPagerAdapter);
         tabLayout = root.findViewById(R.id.tabs);
@@ -68,12 +57,9 @@ public class CategoryFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
-            if (position == 0)
-            {
+            if (position == 0) {
                 fragment = new CategoryExpenseFragment();
-            }
-            else if (position == 1)
-            {
+            } else if (position == 1) {
                 fragment = new CategoryIncomeFragment();
             }
             return fragment;

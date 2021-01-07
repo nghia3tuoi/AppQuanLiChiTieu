@@ -4,8 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.Observable;
 
+import com.uit.quanlychitieu.BR;
 import com.uit.quanlychitieu.MainActivity;
 
 import java.io.Serializable;
@@ -15,7 +19,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class IncomeModel implements Serializable {
+public class IncomeModel extends BaseObservable {
     private int incomeId;
     private int categoryId;
     private String incomeDate;
@@ -24,27 +28,64 @@ public class IncomeModel implements Serializable {
     private String note;
     private int userId;
 
+    @Bindable
     public String categoryName;
+
+    @Bindable
     public String dateFormated;
+
+    @Bindable
     public String timeFormated;
+
+    @Bindable
     public String moneyFormated;
+
+    @Bindable
     public byte[] imgCategory;
 
+    @Bindable
     public Bitmap bitmap;
 
-    @BindingAdapter("bind:imageBitmap")
-    public static void loadImage(ImageView iv, Bitmap bitmap) {
-        iv.setImageBitmap(bitmap);
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+        notifyPropertyChanged(BR.categoryName);
     }
 
-    private void formatData() {
+    public void setDateFormated(String dateFormated) {
+        this.dateFormated = dateFormated;
+        notifyPropertyChanged(BR.dateFormated);
+    }
+
+    public void setTimeFormated(String timeFormated) {
+        this.timeFormated = timeFormated;
+        notifyPropertyChanged(BR.timeFormated);
+    }
+
+    public void setMoneyFormated(String moneyFormated) {
+        this.moneyFormated = moneyFormated;
+        notifyPropertyChanged(BR.moneyFormated);
+    }
+
+    public void setImgCategory(byte[] imgCategory) {
+        this.imgCategory = imgCategory;
+        notifyPropertyChanged(BR.imgCategory);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        notifyPropertyChanged(BR.bitmap);
+    }
+
+    public void formatData() {
         //Lấy tên danh mục dựa trên id của danh mục đó
         if (MainActivity.categoryIncomes != null) {
             for (CategoryModel category : MainActivity.categoryIncomes) {
                 if (category.getCategoryId() == categoryId) {
                     categoryName = category.getName();
                     imgCategory = category.getImageCategory();
-                    bitmap = BitmapFactory.decodeByteArray(imgCategory, 0, imgCategory.length);
+                    if (imgCategory != null) {
+                        bitmap = BitmapFactory.decodeByteArray(imgCategory, 0, imgCategory.length);
+                    }
                     break;
                 }
             }
@@ -78,59 +119,73 @@ public class IncomeModel implements Serializable {
         formatData();
     }
 
+    @Bindable
     public int getIncomeId() {
         return incomeId;
     }
 
     public void setIncomeId(int incomeId) {
         this.incomeId = incomeId;
+        notifyPropertyChanged(BR.incomeId);
     }
 
+    @Bindable
     public int getCategoryId() {
         return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+        notifyPropertyChanged(BR.categoryId);
     }
 
+    @Bindable
     public String getIncomeDate() {
         return incomeDate;
     }
 
     public void setIncomeDate(String incomeDate) {
         this.incomeDate = incomeDate;
+        notifyPropertyChanged(BR.incomeDate);
     }
 
+    @Bindable
     public String getIncomeTime() {
         return incomeTime;
     }
 
     public void setIncomeTime(String incomeTime) {
         this.incomeTime = incomeTime;
+        notifyPropertyChanged(BR.incomeTime);
     }
 
+    @Bindable
     public int getIncomeMoney() {
         return incomeMoney;
     }
 
     public void setIncomeMoney(int incomeMoney) {
         this.incomeMoney = incomeMoney;
+        notifyPropertyChanged(BR.incomeMoney);
     }
 
+    @Bindable
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
+        notifyPropertyChanged(BR.note);
     }
 
+    @Bindable
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+        notifyPropertyChanged(BR.userId);
     }
 }

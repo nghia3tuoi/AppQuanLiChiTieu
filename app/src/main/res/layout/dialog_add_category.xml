@@ -79,7 +79,6 @@
             android:drawableTint="@color/grey_dam"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:inputType="time"
             android:textSize="16dp"
             android:hint="Số tiền dùng cho việc mua sắm"
             android:textColorHint="@android:color/darker_gray"/>

@@ -16,7 +16,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.databinding.ItemIncomeBinding;
 import com.uit.quanlychitieu.databinding.ItemUserBinding;
 import com.uit.quanlychitieu.model.IncomeModel;
 import com.uit.quanlychitieu.model.UserModel;
