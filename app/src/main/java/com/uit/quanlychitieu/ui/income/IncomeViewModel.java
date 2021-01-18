@@ -91,7 +91,8 @@ public class IncomeViewModel extends ViewModel {
 
             if (str1.contains(str2) ||
                     str1.equals(str2) ||
-                    (money != null && money == income.getIncomeMoney())) {
+                    (money != null && money == income.getIncomeMoney()) ||
+                    income.getNote().toLowerCase().contains(str2)) {
                 listIncomeFiltered.add(income);
             }
         }

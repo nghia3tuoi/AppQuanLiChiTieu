@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.statistic.data_statistic.DataStatisticFragment"/>
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center"
+    tools:context=".ui.statistic.data_statistic.DataStatisticFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center|left"
+            android:text="Từ ngày:" />
+
+        <TextView
+            android:id="@+id/txtFromDate"
+            android:layout_width="5dp"
+            android:gravity="center|left"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"
+            android:text="@string/date_add_sample" />
+
+        <ImageView
+            android:id="@+id/imgSelectStartDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            tools:src="@drawable/ic_baseline_date_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center|left"
+            android:text="Đến ngày:" />
+
+        <TextView
+            android:id="@+id/txtToDate"
+            android:layout_width="5dp"
+            android:gravity="center|left"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"
+            android:text="@string/date_add_sample" />
+
+        <ImageView
+            android:id="@+id/imgSelectEndDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            tools:src="@drawable/ic_baseline_date_24" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnResult"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background"
+            android:text="Kết quả" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Số tiền chi tiêu:"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/txtMoneyExpense"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:textSize="18dp"
+            android:textColor="@color/colorMoneyExpense"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/money_expense_sample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Số tiền thu nhập:"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/txtMoneyIncome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:textSize="18dp"
+            android:textColor="@color/colorMoneyIncome"
+            android:textStyle="bold"
+            android:text="@string/money_income_sample" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Số tiền còn lại:"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/txtBalance"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/grey_dam"
+            android:text="@string/money_expense_sample" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -7,7 +7,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 
-import com.uit.quanlychitieu.BR;
 import com.uit.quanlychitieu.R;
 
 import java.io.Serializable;
@@ -23,7 +22,7 @@ public class CategoryModel extends BaseObservable {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-        notifyPropertyChanged(BR.bitmap);
+        //notifyPropertyChanged(BR.bitmap);
     }
 
     public String getDescription() {
@@ -61,7 +60,7 @@ public class CategoryModel extends BaseObservable {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-        notifyPropertyChanged(BR.categoryId);
+        //notifyPropertyChanged(BR.categoryId);
     }
 
     @Bindable
@@ -71,7 +70,7 @@ public class CategoryModel extends BaseObservable {
 
     public void setName(String name) {
         this.name = name;
-        notifyPropertyChanged(BR.name);
+        //notifyPropertyChanged(BR.name);
     }
 
     @Bindable
@@ -81,7 +80,7 @@ public class CategoryModel extends BaseObservable {
 
     public void setImageCategory(byte[] imageCategory) {
         this.imageCategory = imageCategory;
-        notifyPropertyChanged(BR.imageCategory);
+        //notifyPropertyChanged(BR.imageCategory);
     }
 
 }

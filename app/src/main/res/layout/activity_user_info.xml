@@ -47,7 +47,7 @@
                     android:layout_weight="5"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/avatar"
+                    android:src="@drawable/username_detail"
                     android:transitionName="imgUser" />
 
                 <TextView

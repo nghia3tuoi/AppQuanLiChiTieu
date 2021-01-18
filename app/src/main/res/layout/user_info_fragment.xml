@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.user.info.UserInfoFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_person_24" />
+
+                <TextView
+                    android:id="@+id/txtUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@string/user_sample"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_user_24" />
+
+                <TextView
+                    android:id="@+id/txtDisplayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@string/display_user_name_sample"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_email_24" />
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@string/email_sample"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_date_24" />
+
+                <TextView
+                    android:id="@+id/txtDateAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@string/date_add_sample"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_baseline_date_modify_24" />
+
+                <TextView
+                    android:id="@+id/txtDateModify"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@string/date_add_sample"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="20dp"
+                android:id="@+id/btnDeleteUser"
+                android:layout_width="200dp"
+                android:gravity="center"
+                android:layout_height="35dp"
+                android:layout_gravity="center|bottom"
+                android:background="@drawable/button_background"
+                android:text="Xóa tài khoản"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

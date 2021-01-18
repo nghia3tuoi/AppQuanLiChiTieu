@@ -13,6 +13,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.QuanLyChiTieu.NoActionBar.Launcher">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background_login</item>
+    </style>
+
     <style name="Theme.QuanLyChiTieu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.QuanLyChiTieu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

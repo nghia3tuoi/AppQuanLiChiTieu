@@ -16,7 +16,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableList;
 
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.databinding.ItemUserBinding;
 import com.uit.quanlychitieu.model.IncomeModel;
 import com.uit.quanlychitieu.model.UserModel;
 
@@ -26,7 +25,7 @@ public class UserAdapter extends ArrayAdapter<UserModel> {
     private ObservableList<UserModel> dataSet;
     private Context context;
 
-    private ItemUserBinding binding;
+    //private ItemUserBinding binding;
     public UserAdapter(ObservableList<UserModel> data, Context context) {
         super(context, R.layout.item_income, data);
         this.dataSet = data;
@@ -42,9 +41,9 @@ public class UserAdapter extends ArrayAdapter<UserModel> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_user, parent, false);
-        binding.setUserItem(getItem(position));
-        return binding.getRoot();
+       // binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_user, parent, false);
+        //binding.setUserItem(getItem(position));
+        //return binding.getRoot();
 
 //        LayoutInflater inflater = this.context.getLayoutInflater();
 //        View customView = inflater.inflate(this.resource, null);
@@ -63,5 +62,6 @@ public class UserAdapter extends ArrayAdapter<UserModel> {
 //        txtDisplayNameItem.setText(user.getDisplayName());
 //        txtUserNameItem.setText(user.getUserName());
 //        return customView;
+        return  null;
     }
 }

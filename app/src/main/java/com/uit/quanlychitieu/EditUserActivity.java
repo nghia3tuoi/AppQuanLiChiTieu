@@ -56,11 +56,10 @@ public class EditUserActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String filePath = intent.getStringExtra("path");
-        String username = intent.getStringExtra("username");
-        String displayname = intent.getStringExtra("displayname");
+        String userName = intent.getStringExtra("userName");
+        String displayName = intent.getStringExtra("displayName");
         String email = intent.getStringExtra("email");
-
-        displayTextFormated(filePath, username, displayname, email);
+        displayTextFormated(filePath, userName, displayName, email);
 
         imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +92,7 @@ public class EditUserActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 imgUser.setImageBitmap(bitmap);
             } else {
-                imgUser.setImageResource(R.drawable.avatar);
+                imgUser.setImageResource(R.drawable.username_detail);
             }
 
         } catch (Exception ex) {

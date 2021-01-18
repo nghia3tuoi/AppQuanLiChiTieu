@@ -1,5 +1,6 @@
 package com.uit.quanlychitieu.ui.user;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,17 +20,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.uit.quanlychitieu.EditUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.UserInfoActivity;
 import com.uit.quanlychitieu.adapter.UserAdapter;
 import com.uit.quanlychitieu.model.UserModel;
+import com.uit.quanlychitieu.ui.statistic.StatisticFragment;
+import com.uit.quanlychitieu.ui.statistic.StatisticViewModel;
+import com.uit.quanlychitieu.ui.statistic.category_statistic.CategoryStatisticFragment;
+import com.uit.quanlychitieu.ui.statistic.data_statistic.DataStatisticFragment;
+import com.uit.quanlychitieu.ui.statistic.month_statistic.MonthStatisticFragment;
+import com.uit.quanlychitieu.ui.statistic.week_statistic.WeekStatisticFragment;
+import com.uit.quanlychitieu.ui.user.info.UserInfoFragment;
+import com.uit.quanlychitieu.ui.user.info.UserInfoViewModel;
+import com.uit.quanlychitieu.ui.user.listuser.ListUserFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,9 +53,17 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserFragment extends Fragment {
 
     private UserViewModel mViewModel;
+
+    private Activity activity;
+
+    private ViewPager viewPager;
+    private UserFragment.SectionsPagerAdapter sectionsPagerAdapter;
+    private TabLayout tabLayout;
 
     private ListView lstUser;
     private UserAdapter adapter;
@@ -48,13 +71,33 @@ public class UserFragment extends Fragment {
     private UserModel user;
     private TextView txtDisplayName, txtUserName, txtDateAdd;
 
-    private ImageView imgUser;
+    private ImageView imgEdit;
+    private CircleImageView imgUser;
+    private Button btnRemoveData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
         View root = inflater.inflate(R.layout.fragment_user, container, false);
+
+
+//        lstUser = root.findViewById(R.id.lsvUser);
+//        adapter = new UserAdapter(MainActivity.users, getContext());
+//        lstUser.setAdapter(adapter);
+//        lstUser.setOnItemClickListener(clickItemUser);
+//
+//        btnEditUserInfo = root.findViewById(R.id.btnEditInfo);
+//        btnEditUserInfo.setOnClickListener(clickEditUserInfo);
+//
+//        btnRemoveUser = root.findViewById(R.id.btnRemoveUser);
+//        btnRemoveUser.setOnClickListener(clickRemoveUser);
+//
+//        txtDisplayName = root.findViewById(R.id.txtDisplayName);
+//        txtUserName = root.findViewById(R.id.txtUserName);
+//        txtDateAdd = root.findViewById(R.id.txtDateAdd);
+//
+//        imgUser = root.findViewById(R.id.imgUser);
 
         for (UserModel user : MainActivity.users) {
             if (user.getUserId() == MainActivity.USER_ID) {
@@ -63,59 +106,49 @@ public class UserFragment extends Fragment {
             }
         }
 
-        lstUser = root.findViewById(R.id.lsvUser);
-        adapter = new UserAdapter(MainActivity.users, getContext());
-        lstUser.setAdapter(adapter);
-        lstUser.setOnItemClickListener(clickItemUser);
-
-        btnEditUserInfo = root.findViewById(R.id.btnEditInfo);
-        btnEditUserInfo.setOnClickListener(clickEditUserInfo);
-
-        btnRemoveUser = root.findViewById(R.id.btnRemoveUser);
-        btnRemoveUser.setOnClickListener(clickRemoveUser);
-
-        txtDisplayName = root.findViewById(R.id.txtDisplayName);
-        txtUserName = root.findViewById(R.id.txtUserName);
-        txtDateAdd = root.findViewById(R.id.txtDateAdd);
+        btnRemoveData = root.findViewById(R.id.btnRemoveData);
+        btnRemoveData.setOnClickListener(clickRemoveData);
 
         imgUser = root.findViewById(R.id.imgUser);
-        DisplayUserInfo();
+        txtDisplayName = root.findViewById(R.id.txtDisplayName);
+
+        imgEdit = root.findViewById(R.id.imgEdit);
+        imgEdit.setOnClickListener(clickEditUserInfo);
+
+        displayUserInfo();
+
+        activity = (Activity) root.getContext();
+        sectionsPagerAdapter = new UserFragment.SectionsPagerAdapter(getChildFragmentManager());
+        viewPager = root.findViewById(R.id.container);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        tabLayout = root.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         return root;
     }
 
-    private void DisplayUserInfo() {
+    private void displayUserInfo() {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd-mm-yyyy");
+        txtDisplayName.setText(user != null ? user.getDisplayName() : "Chào mừng!");
 
-        if (user != null) {
-            txtDisplayName.setText(user.getDisplayName());
-            txtUserName.setText(user.getUserName());
-
-            String sDateAdd = user.getDateAdd();
-            Date date = new SimpleDateFormat("dd/mm/yyyy").parse(sDateAdd, new ParsePosition(0));
-
-            txtDateAdd.setText(formatDate.format(date));
-        } else {
-            txtDisplayName.setText("Chào mừng!");
-            txtUserName.setText("Bạn chưa đăng ký");
-            txtDateAdd.setText(formatDate.format(new Date().toString()));
-        }
     }
 
     private final AdapterView.OnItemClickListener clickItemUser = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            ImageView imgUser = view.findViewById(R.id.imgUserItem);
 
-            UserModel userSelected = adapter.getItem(position);
-            Intent intent = new Intent(getActivity(), UserInfoActivity.class);
-            String filePath = saveTempFileImageAsByteArray(getContext(), userSelected.getImageAvatar(), "avatar");
+        }
+    };
+
+    private final View.OnClickListener clickEditUserInfo = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), EditUserActivity.class);
+            String filePath = saveTempFileImageAsByteArray(getContext(), user.getImageAvatar(), "avatar");
             intent.putExtra("path", filePath);
-            intent.putExtra("username", userSelected.getUserName());
-            intent.putExtra("displayname", userSelected.getDisplayName());
-            intent.putExtra("email", userSelected.getEmail());
-            intent.putExtra("dateadd", userSelected.dateAddFormated);
-            intent.putExtra("datemodify", userSelected.dateModifyFormated);
+            intent.putExtra("userName", user.getUserName());
+            intent.putExtra("displayName", user.getDisplayName());
+            intent.putExtra("email", user.getEmail());
 
             Pair<View, String> p = Pair.create(imgUser, "imgUser");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p);
@@ -123,28 +156,7 @@ public class UserFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener clickEditUserInfo = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                Intent intent = new Intent(getActivity(), EditUserActivity.class);
-                String filePath = saveTempFileImageAsByteArray(getContext(), user.getImageAvatar(), "avatar");
-                intent.putExtra("path", filePath);
-                intent.putExtra("username", user.getUserName());
-                intent.putExtra("displayname", user.getDisplayName());
-                intent.putExtra("email", user.getEmail());
-
-                //intent.putExtra("user", user);
-                Pair<View, String> p = Pair.create(imgUser, "imgUser");
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p);
-                startActivity(intent, options.toBundle());
-            } catch (Exception ex) {
-                Log.e("ERORR", ex.getMessage());
-            }
-        }
-    };
-
-    public static String saveTempFileImageAsByteArray(Context context, byte[] img, String name) {
+    private String saveTempFileImageAsByteArray(Context context, byte[] img, String name) {
         File outputDir = context.getCacheDir();
         File imageFile = new File(outputDir, name);
         OutputStream os;
@@ -159,7 +171,7 @@ public class UserFragment extends Fragment {
         return imageFile.getAbsolutePath();
     }
 
-    private final View.OnClickListener clickRemoveUser = new View.OnClickListener() {
+    private final View.OnClickListener clickRemoveData = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             final Dialog dialog = new Dialog(getContext());
@@ -174,7 +186,7 @@ public class UserFragment extends Fragment {
             final Button btnYes = dialog.findViewById(R.id.btnYes);
             final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-            txt_Titleconfirm.setText("Tất cả thông tin và dữ liệu người dùng sẽ bị xóa, bạn chắc chắn?");
+            txt_Titleconfirm.setText("Bạn có chắc chắn muốn xóa dữ liệu của mình không?");
             btnNo.setText("Hủy bỏ");
             btnYes.setText("Đồng ý");
 
@@ -188,11 +200,45 @@ public class UserFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "Xóa người dùng thành công", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Tất cả dữ liệu đã được xóa", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
             });
             dialog.show();
         }
     };
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            if (position == 0) {
+                fragment = new UserInfoFragment();
+            } else if (position == 1) {
+                fragment = new ListUserFragment();
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Thông tin người dùng";
+                case 1:
+                    return "Danh sách người dùng";
+            }
+            return null;
+        }
+    }
 }

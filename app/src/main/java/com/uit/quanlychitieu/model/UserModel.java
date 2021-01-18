@@ -5,8 +5,12 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.Observable;
 
+import com.uit.quanlychitieu.BR;
 import com.uit.quanlychitieu.MainActivity;
 
 import java.io.Serializable;
@@ -16,7 +20,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UserModel implements Serializable {
+public class UserModel extends BaseObservable {
     private int userId;
     private String displayName;
     private String userName;
@@ -26,8 +30,13 @@ public class UserModel implements Serializable {
     private String dateAdd;
     private String dateModify;
 
+    @Bindable
     public String dateAddFormated;
+
+    @Bindable
     public String dateModifyFormated;
+
+    @Bindable
     public Bitmap bitmap;
 
     private void formatData() {
@@ -40,17 +49,12 @@ public class UserModel implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         //Định dạng ngày tháng
-        Date dateAdd = new SimpleDateFormat("dd/MM/yyyy").parse(sDateAdd, new ParsePosition(0));
+        Date dateAdd = new SimpleDateFormat("yyyy-MM-dd").parse(sDateAdd, new ParsePosition(0));
         dateAddFormated = dateFormat.format(dateAdd);
 
         //Định dạng ngày tháng
-        Date dateModify = new SimpleDateFormat("dd/MM/yyyy").parse(sDateModify, new ParsePosition(0));
+        Date dateModify = new SimpleDateFormat("yyyy-MM-dd").parse(sDateModify, new ParsePosition(0));
         dateModifyFormated = dateFormat.format(dateModify);
-    }
-
-    @BindingAdapter("bind:imageBitmap")
-    public static void loadImage(ImageView iv, Bitmap bitmap) {
-        iv.setImageBitmap(bitmap);
     }
 
     public UserModel(int userId, String displayName, String userName, String password, String email, byte[] imageAvatar, String dateAdd, String dateModify) {
@@ -66,6 +70,7 @@ public class UserModel implements Serializable {
         formatData();
     }
 
+    @Bindable
     public int getUserId() {
         return userId;
     }
@@ -74,6 +79,7 @@ public class UserModel implements Serializable {
         this.userId = userId;
     }
 
+    @Bindable
     public String getDisplayName() {
         return displayName;
     }
@@ -82,6 +88,7 @@ public class UserModel implements Serializable {
         this.displayName = displayName;
     }
 
+    @Bindable
     public String getUserName() {
         return userName;
     }
@@ -90,6 +97,7 @@ public class UserModel implements Serializable {
         this.userName = userName;
     }
 
+    @Bindable
     public String getPassword() {
         return password;
     }
@@ -98,6 +106,7 @@ public class UserModel implements Serializable {
         this.password = password;
     }
 
+    @Bindable
     public String getEmail() {
         return email;
     }
@@ -106,6 +115,7 @@ public class UserModel implements Serializable {
         this.email = email;
     }
 
+    @Bindable
     public byte[] getImageAvatar() {
         return imageAvatar;
     }
@@ -114,6 +124,7 @@ public class UserModel implements Serializable {
         this.imageAvatar = imageAvatar;
     }
 
+    @Bindable
     public String getDateAdd() {
         return dateAdd;
     }
@@ -122,6 +133,7 @@ public class UserModel implements Serializable {
         this.dateAdd = dateAdd;
     }
 
+    @Bindable
     public String getDateModify() {
         return dateModify;
     }

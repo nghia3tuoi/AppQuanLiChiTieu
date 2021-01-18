@@ -16,7 +16,6 @@ public class ExpenseViewModel extends ViewModel {
     MutableLiveData<List<ExpenseModel>> listExpenseLiveData;
     List<ExpenseModel> listExpense;
 
-
     MutableLiveData<List<ExpenseModel>> listExpenseFilteredLiveData;
     List<ExpenseModel> listExpenseFiltered;
 
@@ -95,7 +94,8 @@ public class ExpenseViewModel extends ViewModel {
 
             if (str1.contains(str2) ||
                     str1.equals(str2) ||
-                    (money != null && money == expense.getExpenseMoney())) {
+                    (money != null && money == expense.getExpenseMoney()) ||
+                    expense.getNote().toLowerCase().contains(str2)) {
                 listExpenseFiltered.add(expense);
             }
         }

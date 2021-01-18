@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.uit.quanlychitieu.BR;
+//import com.uit.quanlychitieu.BR;
 import com.uit.quanlychitieu.MainActivity;
 
 import java.io.Serializable;
@@ -46,32 +46,32 @@ public class ExpenseModel extends BaseObservable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-        notifyPropertyChanged(BR.categoryName);
+        //notifyPropertyChanged(BR.categoryName);
     }
 
     public void setDateFormated(String dateFormated) {
         this.dateFormated = dateFormated;
-        notifyPropertyChanged(BR.dateFormated);
+        //notifyPropertyChanged(BR.dateFormated);
     }
 
     public void setTimeFormated(String timeFormated) {
         this.timeFormated = timeFormated;
-        notifyPropertyChanged(BR.timeFormated);
+        //notifyPropertyChanged(BR.timeFormated);
     }
 
     public void setMoneyFormated(String moneyFormated) {
         this.moneyFormated = moneyFormated;
-        notifyPropertyChanged(BR.moneyFormated);
+        //notifyPropertyChanged(BR.moneyFormated);
     }
 
     public void setImgCategory(byte[] imgCategory) {
         this.imgCategory = imgCategory;
-        notifyPropertyChanged(BR.imgCategory);
+        //notifyPropertyChanged(BR.imgCategory);
     }
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-        notifyPropertyChanged(BR.bitmap);
+        //notifyPropertyChanged(BR.bitmap);
     }
 
     public void formatData() {
@@ -91,7 +91,7 @@ public class ExpenseModel extends BaseObservable {
 
         //Định dạng ngày tháng
         String sDate = expenseDate + "";
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse(sDate, new ParsePosition(0));
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate, new ParsePosition(0));
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dateFormated = dateFormat.format(date);
 
@@ -123,7 +123,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setExpenseId(int expenseId) {
         this.expenseId = expenseId;
-        notifyPropertyChanged(BR.expenseId);
+        //notifyPropertyChanged(BR.expenseId);
     }
 
     @Bindable
@@ -133,7 +133,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-        notifyPropertyChanged(BR.expenseId);
+        //notifyPropertyChanged(BR.expenseId);
     }
 
     @Bindable
@@ -143,7 +143,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setExpenseDate(String expenseDate) {
         this.expenseDate = expenseDate;
-        notifyPropertyChanged(BR.expenseDate);
+        //notifyPropertyChanged(BR.expenseDate);
     }
 
     @Bindable
@@ -153,7 +153,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setExpenseTime(String expenseTime) {
         this.expenseTime = expenseTime;
-        notifyPropertyChanged(BR.expenseTime);
+       // notifyPropertyChanged(BR.expenseTime);
     }
 
     @Bindable
@@ -163,7 +163,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setExpenseMoney(int expenseMoney) {
         this.expenseMoney = expenseMoney;
-        notifyPropertyChanged(BR.expenseMoney);
+        //notifyPropertyChanged(BR.expenseMoney);
     }
 
     @Bindable
@@ -173,7 +173,7 @@ public class ExpenseModel extends BaseObservable {
 
     public void setNote(String note) {
         this.note = note;
-        notifyPropertyChanged(BR.note);
+        //notifyPropertyChanged(BR.note);
     }
 
     @Bindable
@@ -183,6 +183,6 @@ public class ExpenseModel extends BaseObservable {
 
     public void setUserId(int userId) {
         this.userId = userId;
-        notifyPropertyChanged(BR.userId);
+        //notifyPropertyChanged(BR.userId);
     }
 }

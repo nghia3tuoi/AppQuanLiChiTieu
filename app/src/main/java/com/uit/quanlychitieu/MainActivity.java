@@ -2,6 +2,7 @@ package com.uit.quanlychitieu;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
@@ -13,7 +14,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,8 +74,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Observable;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
     // Người dùng đăng nhập hiện tại
     public static int USER_ID = 1;
 
@@ -86,13 +90,73 @@ public class MainActivity extends AppCompatActivity {
     public static ObservableArrayList<CategoryModel> categoryExpanses;
     public static ObservableArrayList<CategoryModel> categoryIncomes;
     public static ObservableArrayList<UserModel> users;
-    public static int USER = 1;
 
     //Các control trên màn hình chính
     private NavigationView navigationView;
-    FloatingActionButton fab;
 
     private AppBarConfiguration mAppBarConfiguration;
+
+
+    private Handler handler;
+    private ProgressDialog progress;
+    private Context context;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        MainActivity.super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        USER_ID = intent.getIntExtra("USER_ID", 0);
+
+        try {
+            categoryExpanses = loadDataCategotyFromDatabase("DanhMucChiTieu");
+            categoryIncomes = loadDataCategotyFromDatabase("DanhMucThuNhap");
+            expenses = loadDataExpenseFromDatabase();
+            incomes = loadDataIncomeFromDatabase();
+
+            users = loadDataUser();
+            saveImgToDatabase();
+        } catch (Exception ex) {
+        }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_expense, R.id.nav_income, R.id.nav_statistic, R.id.nav_user,
+                R.id.nav_backup_and_restore, R.id.nav_category_spending)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(MainActivity.this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.nav_settings:
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                NavigationUI.onNavDestinationSelected(menuItem, navController);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        showDialogQuestionCloseApp();
+    }
 
     //Mở dialog hỏi người dùng muốn đóng ứng dụng không
     private void showDialogQuestionCloseApp() {
@@ -127,110 +191,6 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //Copy cở sở dữ liệu từ project đến dứng dụng nếu không tồn tại
-        processCopy();
-
-        categoryExpanses = loadDataCategotyFromDatabase("DanhMucChiTieu");
-        categoryIncomes = loadDataCategotyFromDatabase("DanhMucThuNhap");
-        expenses = loadDataExpenseFromDatabase();
-        incomes = loadDataIncomeFromDatabase();
-
-        users = loadDataUser();
-        saveImgToDatabase();
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(clickFabButton);
-        fab.hide();
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_expense, R.id.nav_income, R.id.nav_statistic, R.id.nav_user,
-                R.id.nav_backup_and_restore, R.id.nav_category_spending)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-
-                switch (id) {
-                    case R.id.nav_expense:
-                        currentFragment = 0;
-                        break;
-                    case R.id.nav_income:
-                        currentFragment = 1;
-                        break;
-                    case R.id.nav_user:
-                        currentFragment = 2;
-                        break;
-                    case R.id.nav_category_spending:
-                        currentFragment = 3;
-                        break;
-                    case R.id.nav_settings:
-                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        currentFragment = -1;
-                        break;
-                }
-                if (currentFragment == 2) {
-                    fab.show();
-                } else {
-                    fab.hide();
-                }
-                NavigationUI.onNavDestinationSelected(menuItem, navController);
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-    }
-
-    private int currentFragment = 0;
-
-    @Override
-    public void onBackPressed() {
-        showDialogQuestionCloseApp();
-    }
-
-    private final View.OnClickListener clickFabButton = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            switch (currentFragment) {
-                case 0:
-                    fab.hide();
-                    openAddExpenseDialog();
-                    break;
-                case 1:
-                    fab.hide();
-                    openAddIncomeDialog();
-                    break;
-                case 2:
-                    Intent intentAddUser = new Intent(MainActivity.this, AddUserActivity.class);
-                    startActivity(intentAddUser);
-                    break;
-                case 3:
-                    fab.hide();
-                    //openAddCategoryDialog(false);
-                    break;
-            }
-        }
-    };
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -283,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
     private ObservableArrayList<ExpenseModel> loadDataExpenseFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         ObservableArrayList<ExpenseModel> expanseList = new ObservableArrayList<>();
-        Cursor cursor = database.rawQuery("select * from ChiTieu where UserId = " + USER, null);
+        Cursor cursor = database.rawQuery("select * from ChiTieu where UserId = " + USER_ID, null);
         while (cursor.moveToNext()) {
             int transactionId = cursor.getInt(0);
             int categoryId = cursor.getInt(1);
@@ -303,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
     private ObservableArrayList<IncomeModel> loadDataIncomeFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         ObservableArrayList<IncomeModel> incomeList = new ObservableArrayList<>();
-        Cursor cursor = database.rawQuery("select * from ThuNhap where UserId = " + USER, null);
+        Cursor cursor = database.rawQuery("select * from ThuNhap where UserId = " + USER_ID, null);
         while (cursor.moveToNext()) {
             int transactionId = cursor.getInt(0);
             int categoryId = cursor.getInt(1);
@@ -399,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
         //Lưu ảnh đại diện người dùng vào database
         for (int i = 0; i < numberOfUserSample; i++) {
             if (users.get(i).getImageAvatar() == null) {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.username_detail);
                 updateImage("User", i + 1, bitmap);
             }
         }
@@ -427,226 +387,6 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         return userList;
     }
-
-    private void openAddExpenseDialog() {
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_add_expense);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-
-        Window window = dialog.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        final EditText edtTime = dialog.findViewById(R.id.edtTime);
-        final EditText edtDate = dialog.findViewById(R.id.edtDate);
-        final EditText edtMoney = dialog.findViewById(R.id.edtMoney);
-        final EditText edtNote = dialog.findViewById(R.id.edtNote);
-        final Button btnAdd = dialog.findViewById(R.id.btnAdd);
-        final Button btnBack = dialog.findViewById(R.id.btnBack);
-        final Spinner spinner = dialog.findViewById(R.id.spnCategory);
-
-        //Hiển thị dữ liệu danh mục chi tiêu
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item);
-        for (CategoryModel category : categoryExpanses) {
-            adapter.add(category.getName());
-        }
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        final Calendar cal = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, monthOfYear);
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                //Cập nhật ngày tháng
-                SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-                edtDate.setText(formatDate.format(cal.getTime()));
-            }
-
-        };
-
-        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                cal.set(Calendar.MINUTE, minute);
-                //Cập nhật thời gian
-                SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-                edtTime.setText(formatTime.format(cal.getTime()));
-            }
-        };
-
-        //Lấy dữ liệu thời gian hiện tại
-        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-        edtTime.setText(formatTime.format(cal.getTime()));
-
-        //Lấy dữ liệu ngày tháng hiện tại
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-        edtDate.setText(formatDate.format(cal.getTime()));
-
-        //Mở cửa sổ dialog chọn ngày tháng
-        edtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(MainActivity.this, date,
-                        cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        //Mở cửa sổ dialog chọn thời gian
-        edtTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TimePickerDialog(MainActivity.this, time,
-                        cal.get(Calendar.HOUR_OF_DAY),
-                        cal.get(Calendar.MINUTE), true).show();
-            }
-        });
-
-        //Đóng cửa sổ dialog
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        //Thêm khoản chi và đóng cửa sổ dialog
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Thêm khoản chi tiêu
-                dialog.dismiss();
-                if (edtMoney.getText().toString() == null || edtMoney.getText().toString() == "") {
-                    Toast.makeText(MainActivity.this, "Bạn chưa nhập số tiền", Toast.LENGTH_LONG);
-                }
-            }
-        });
-
-        dialog.show();
-    }
-
-    private void openAddIncomeDialog() {
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_add_income);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-
-        Window window = dialog.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (dialog != null && dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        final EditText edtTime = dialog.findViewById(R.id.edtTime);
-        final EditText edtDate = dialog.findViewById(R.id.edtDate);
-        final EditText edtMoney = dialog.findViewById(R.id.edtMoney);
-        final EditText edtNote = dialog.findViewById(R.id.edtNote);
-        final Button btnAdd = dialog.findViewById(R.id.btnAdd);
-        final Button btnBack = dialog.findViewById(R.id.btnBack);
-        final Spinner spinner = dialog.findViewById(R.id.spnCategory);
-
-        //Hiển thị dữ liệu danh mục chi tiêu
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item);
-        for (CategoryModel category : categoryExpanses) {
-            adapter.add(category.getName());
-        }
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        final Calendar cal = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, monthOfYear);
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                //Cập nhật ngày tháng
-                SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-                edtDate.setText(formatDate.format(cal.getTime()));
-            }
-
-        };
-
-        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                cal.set(Calendar.MINUTE, minute);
-                //Cập nhật thời gian
-                SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-                edtTime.setText(formatTime.format(cal.getTime()));
-            }
-        };
-
-        //Lấy dữ liệu thời gian hiện tại
-        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-        edtTime.setText(formatTime.format(cal.getTime()));
-
-        //Lấy dữ liệu ngày tháng hiện tại
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-        edtDate.setText(formatDate.format(cal.getTime()));
-
-        //Mở cửa sổ dialog chọn ngày tháng
-        edtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(MainActivity.this, date,
-                        cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        //Mở cửa sổ dialog chọn thời gian
-        edtTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TimePickerDialog(MainActivity.this, time,
-                        cal.get(Calendar.HOUR_OF_DAY),
-                        cal.get(Calendar.MINUTE), true).show();
-            }
-        });
-
-        //Đóng cửa sổ dialog
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        //Thêm khoản chi và đóng cửa sổ dialog
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Thêm khoản chi tiêu
-                dialog.dismiss();
-                if (edtMoney.getText().toString() == null || edtMoney.getText().toString() == "") {
-                    Toast.makeText(MainActivity.this, "Bạn chưa nhập số tiền", Toast.LENGTH_LONG);
-                }
-            }
-        });
-
-        dialog.show();
-    }
-
-
 }
+
+

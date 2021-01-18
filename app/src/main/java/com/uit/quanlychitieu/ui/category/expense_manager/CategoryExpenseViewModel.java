@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryExpenseViewModel extends ViewModel {
-    MutableLiveData<List<CategoryModel>> listCategoryLiveData;
-    List<CategoryModel> listCategory;
+    private MutableLiveData<List<CategoryModel>> listCategoryLiveData;
+    private List<CategoryModel> listCategory;
 
     public CategoryExpenseViewModel() {
         listCategoryLiveData = new MutableLiveData<>();

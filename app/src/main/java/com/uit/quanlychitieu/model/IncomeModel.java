@@ -9,7 +9,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.Observable;
 
-import com.uit.quanlychitieu.BR;
+//import com.uit.quanlychitieu.BR;
 import com.uit.quanlychitieu.MainActivity;
 
 import java.io.Serializable;
@@ -48,32 +48,32 @@ public class IncomeModel extends BaseObservable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-        notifyPropertyChanged(BR.categoryName);
+        //notifyPropertyChanged(BR.categoryName);
     }
 
     public void setDateFormated(String dateFormated) {
         this.dateFormated = dateFormated;
-        notifyPropertyChanged(BR.dateFormated);
+        //notifyPropertyChanged(BR.dateFormated);
     }
 
     public void setTimeFormated(String timeFormated) {
         this.timeFormated = timeFormated;
-        notifyPropertyChanged(BR.timeFormated);
+        //notifyPropertyChanged(BR.timeFormated);
     }
 
     public void setMoneyFormated(String moneyFormated) {
         this.moneyFormated = moneyFormated;
-        notifyPropertyChanged(BR.moneyFormated);
+        //notifyPropertyChanged(BR.moneyFormated);
     }
 
     public void setImgCategory(byte[] imgCategory) {
         this.imgCategory = imgCategory;
-        notifyPropertyChanged(BR.imgCategory);
+        //notifyPropertyChanged(BR.imgCategory);
     }
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-        notifyPropertyChanged(BR.bitmap);
+        //notifyPropertyChanged(BR.bitmap);
     }
 
     public void formatData() {
@@ -93,7 +93,7 @@ public class IncomeModel extends BaseObservable {
 
         //Định dạng ngày tháng
         String sDate = incomeDate + "";
-        Date date = new SimpleDateFormat("dd-MM-yyyy").parse(sDate, new ParsePosition(0));
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate, new ParsePosition(0));
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dateFormated = dateFormat.format(date);
 
@@ -126,7 +126,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setIncomeId(int incomeId) {
         this.incomeId = incomeId;
-        notifyPropertyChanged(BR.incomeId);
+        //notifyPropertyChanged(BR.incomeId);
     }
 
     @Bindable
@@ -136,7 +136,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-        notifyPropertyChanged(BR.categoryId);
+        //notifyPropertyChanged(BR.categoryId);
     }
 
     @Bindable
@@ -146,7 +146,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setIncomeDate(String incomeDate) {
         this.incomeDate = incomeDate;
-        notifyPropertyChanged(BR.incomeDate);
+        //notifyPropertyChanged(BR.incomeDate);
     }
 
     @Bindable
@@ -156,7 +156,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setIncomeTime(String incomeTime) {
         this.incomeTime = incomeTime;
-        notifyPropertyChanged(BR.incomeTime);
+        //notifyPropertyChanged(BR.incomeTime);
     }
 
     @Bindable
@@ -166,7 +166,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setIncomeMoney(int incomeMoney) {
         this.incomeMoney = incomeMoney;
-        notifyPropertyChanged(BR.incomeMoney);
+        //notifyPropertyChanged(BR.incomeMoney);
     }
 
     @Bindable
@@ -176,7 +176,7 @@ public class IncomeModel extends BaseObservable {
 
     public void setNote(String note) {
         this.note = note;
-        notifyPropertyChanged(BR.note);
+        //notifyPropertyChanged(BR.note);
     }
 
     @Bindable
@@ -186,6 +186,6 @@ public class IncomeModel extends BaseObservable {
 
     public void setUserId(int userId) {
         this.userId = userId;
-        notifyPropertyChanged(BR.userId);
+        //notifyPropertyChanged(BR.userId);
     }
 }

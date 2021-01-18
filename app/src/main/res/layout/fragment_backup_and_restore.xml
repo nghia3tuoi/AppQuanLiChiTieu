@@ -1,16 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
     tools:context=".ui.backupandrestore.BackupAndRestoreFragment">
 
     <TextView
-        android:id="@+id/txtBackup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello"
-        android:gravity="center"
-        android:textSize="26dp"/>
+        android:layout_height="wrap_content"
+        android:text="Sao lưu"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24dp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:weightSum="7"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="4">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="Khoản chi"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtBackupExpense"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Tên tệp sao lưu"
+                            android:textSize="16dp">
+
+                        </EditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/swSelectBackupExpense"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="4">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="Khoản thu"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtBackupIncome"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Tên tệp sao lưu"
+                            android:textSize="16dp">
+
+                        </EditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/swSelectBackupIncome"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:weightSum="2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="Vị trí sao lưu"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="80dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <ImageView
+                            android:id="@+id/imgStorage"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            tools:src="@drawable/ic_baseline_sd_storage_24"
+                            android:clickable="true"
+                            android:background="?android:attr/selectableItemBackground"/>
+
+                        <EditText
+                            android:id="@+id/edtPathBackup"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5"
+                            android:textSize="16dp"
+                            android:hint="Chọn đường dẫn sao lưu" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="16dp">
+
+                <Button
+                    android:id="@+id/btnBackup"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@drawable/button_background"
+                    android:text="Sao lưu"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Khôi phục"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="4">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="Khoản chi"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:weightSum="5">
+                        <ImageView
+                            android:padding="5dp"
+                            android:id="@+id/imgStorage1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:background="?android:attr/selectableItemBackground"
+                            tools:src="@drawable/ic_baseline_sd_storage_24" />
+
+                        <EditText
+                            android:id="@+id/edtPathRestoreExpense"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:hint="Chọn khoản chi đã sao lưu"
+                            android:textSize="16dp">
+
+                        </EditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/swSelectRestoreExpense"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="5"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2"
+                    android:layout_weight="4">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="Khoản thu"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:weightSum="5">
+
+                        <ImageView
+                            android:padding="5dp"
+                            android:id="@+id/imgStorage2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:background="?android:attr/selectableItemBackground"
+                            tools:src="@drawable/ic_baseline_sd_storage_24" />
+
+                        <EditText
+                            android:id="@+id/edtPathRestoreIncome"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:textSize="16dp"
+                            android:hint="Chọn khoản thu đã sao lưu">
+
+                        </EditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:id="@+id/swSelectRestoreIncome"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="16dp">
+
+                <Button
+                    android:id="@+id/btnRestore"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@drawable/button_background"
+                    android:text="Khôi phục"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>
