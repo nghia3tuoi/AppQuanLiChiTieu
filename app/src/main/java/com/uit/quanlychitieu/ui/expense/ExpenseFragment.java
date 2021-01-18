@@ -389,9 +389,11 @@ public class ExpenseFragment extends Fragment implements OnClickRecycleView<Expe
             edtTime.setText(formatTime.format(date1.getTime()));
 
             //Lấy dữ liệu ngày tháng hiện tại
-            DateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-            Date date2 = formatDate.parse(expense.getExpenseDate(), new ParsePosition(0));
-            edtDate.setText(formatDate.format(date2));
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date2 = format.parse(expense.getExpenseDate(), new ParsePosition(0));
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            edtDate.setText(dateFormat.format(date2));
 
             //Đặt dữ liệu số tiền và ghi chú
             edtMoney.setText(expense.getExpenseMoney() + "");

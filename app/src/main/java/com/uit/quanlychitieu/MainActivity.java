@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Load dữ liệu các khoản chi tiêu từ cơ sở dữ liệu
-    private ObservableArrayList<ExpenseModel> loadDataExpenseFromDatabase() {
+    public ObservableArrayList<ExpenseModel> loadDataExpenseFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         ObservableArrayList<ExpenseModel> expanseList = new ObservableArrayList<>();
         Cursor cursor = database.rawQuery("select * from ChiTieu where UserId = " + USER_ID, null);
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Load dữ liệu các khoản thu nhập từ cơ sở dữ liệu
-    private ObservableArrayList<IncomeModel> loadDataIncomeFromDatabase() {
+    public ObservableArrayList<IncomeModel> loadDataIncomeFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
         ObservableArrayList<IncomeModel> incomeList = new ObservableArrayList<>();
         Cursor cursor = database.rawQuery("select * from ThuNhap where UserId = " + USER_ID, null);
@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Load dữ liệu ngươi dùng từ cơ sở dữ liệu
+    // Load dữ liệu người dùng từ cơ sở dữ liệu
     private ObservableArrayList<UserModel> loadDataUser() {
         if (database == null) {
             database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);

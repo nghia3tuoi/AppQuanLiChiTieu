@@ -1,6 +1,8 @@
 package com.uit.quanlychitieu.ui.category.income_manager;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -130,7 +132,9 @@ public class CategoryIncomeFragment extends Fragment implements OnClickRecycleVi
             @Override
             public void onClick(View v) {
                 //Thêm khoản chi tiêu
-                boolean added = categoryIncomeViewModel.addCategory(String.valueOf(edtNameCategory.getText()), String.valueOf(edtDescription.getText()));
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ei5);
+                byte[] imgCategory = MainActivity.getBitmapAsByteArray(bm);
+                boolean added = categoryIncomeViewModel.addCategory(String.valueOf(edtNameCategory.getText()), String.valueOf(edtDescription.getText()), imgCategory);
                 dialog.dismiss();
                 Toast.makeText(getActivity(), added == true ? "Thêm thành công" : "Danh mục này đã tồn tại!", Toast.LENGTH_LONG).show();
             }
@@ -152,7 +156,7 @@ public class CategoryIncomeFragment extends Fragment implements OnClickRecycleVi
         final Button btnYes = dialog.findViewById(R.id.btnYes);
         final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-        txt_Titleconfirm.setText("Bạn có muốn xóa loại thu này không?");
+        txt_Titleconfirm.setText("Các khoản thu liên quan cũng sẽ bị xóa. Bạn có muốn xóa loại thu này không?");
         btnNo.setText("Hủy bỏ");
         btnYes.setText("Xác nhận");
 

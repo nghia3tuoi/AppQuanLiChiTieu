@@ -380,9 +380,11 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
             edtTime.setText(formatTime.format(date1.getTime()));
 
             //Lấy dữ liệu ngày tháng hiện tại
-            DateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-            Date date2 = formatDate.parse(income.getIncomeDate(), new ParsePosition(0));
-            edtDate.setText(formatDate.format(date2));
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date2 = format.parse(income.getIncomeDate(), new ParsePosition(0));
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            edtDate.setText(dateFormat.format(date2));
 
             //Đặt dữ liệu số tiền và ghi chú
             edtMoney.setText(income.getIncomeMoney() + "");
@@ -420,7 +422,6 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
             public void onClick(View v) {
                 //Chỉnh sửa khoản chi
                 try {
-
 
                     if (edtMoney.getText().equals("")) {
                         Toast.makeText(getActivity(), "Dữ liệu không hợp lệ!", Toast.LENGTH_LONG).show();

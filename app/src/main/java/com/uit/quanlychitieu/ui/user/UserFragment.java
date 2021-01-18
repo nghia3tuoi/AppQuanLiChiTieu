@@ -26,6 +26,7 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -35,6 +36,7 @@ import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.UserInfoActivity;
 import com.uit.quanlychitieu.adapter.UserAdapter;
+import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.UserModel;
 import com.uit.quanlychitieu.ui.statistic.StatisticFragment;
 import com.uit.quanlychitieu.ui.statistic.StatisticViewModel;
@@ -52,6 +54,7 @@ import java.io.OutputStream;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -65,39 +68,17 @@ public class UserFragment extends Fragment {
     private UserFragment.SectionsPagerAdapter sectionsPagerAdapter;
     private TabLayout tabLayout;
 
-    private ListView lstUser;
-    private UserAdapter adapter;
-    private Button btnEditUserInfo, btnRemoveUser;
     private UserModel user;
-    private TextView txtDisplayName, txtUserName, txtDateAdd;
+    private TextView txtDisplayName, txtExpenseMoney, txtIncomeMoney;
 
     private ImageView imgEdit;
     private CircleImageView imgUser;
     private Button btnRemoveData;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        mViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
         View root = inflater.inflate(R.layout.fragment_user, container, false);
-
-
-//        lstUser = root.findViewById(R.id.lsvUser);
-//        adapter = new UserAdapter(MainActivity.users, getContext());
-//        lstUser.setAdapter(adapter);
-//        lstUser.setOnItemClickListener(clickItemUser);
-//
-//        btnEditUserInfo = root.findViewById(R.id.btnEditInfo);
-//        btnEditUserInfo.setOnClickListener(clickEditUserInfo);
-//
-//        btnRemoveUser = root.findViewById(R.id.btnRemoveUser);
-//        btnRemoveUser.setOnClickListener(clickRemoveUser);
-//
-//        txtDisplayName = root.findViewById(R.id.txtDisplayName);
-//        txtUserName = root.findViewById(R.id.txtUserName);
-//        txtDateAdd = root.findViewById(R.id.txtDateAdd);
-//
-//        imgUser = root.findViewById(R.id.imgUser);
 
         for (UserModel user : MainActivity.users) {
             if (user.getUserId() == MainActivity.USER_ID) {
@@ -115,6 +96,9 @@ public class UserFragment extends Fragment {
         imgEdit = root.findViewById(R.id.imgEdit);
         imgEdit.setOnClickListener(clickEditUserInfo);
 
+        txtExpenseMoney = root.findViewById(R.id.txtExpenseMoney);
+        txtIncomeMoney = root.findViewById(R.id.txtIncomeMoney);
+
         displayUserInfo();
 
         activity = (Activity) root.getContext();
@@ -124,21 +108,27 @@ public class UserFragment extends Fragment {
         tabLayout = root.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        mViewModel.getTotalMoneyExpense().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                txtExpenseMoney.setText(s);
+            }
+        });
+
+        mViewModel.getTotalMoneyIncome().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                txtIncomeMoney.setText(s);
+            }
+        });
+
         return root;
     }
 
     private void displayUserInfo() {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd-mm-yyyy");
         txtDisplayName.setText(user != null ? user.getDisplayName() : "Chào mừng!");
-
     }
-
-    private final AdapterView.OnItemClickListener clickItemUser = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-    };
 
     private final View.OnClickListener clickEditUserInfo = new View.OnClickListener() {
         @Override

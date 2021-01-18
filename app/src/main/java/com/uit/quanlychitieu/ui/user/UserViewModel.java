@@ -1,21 +1,78 @@
 package com.uit.quanlychitieu.ui.user;
 
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.uit.quanlychitieu.MainActivity;
+
+import java.text.NumberFormat;
+
 public class UserViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
-    // TODO: Implement the ViewModel
-    private MutableLiveData<String> mText;
+
+    private SQLiteDatabase database;
+    private long moneyExpense;
+    private MutableLiveData<String> totalMoneyExpense;
+
+    private long moneyIncome;
+    private MutableLiveData<String> totalMoneyIncome;
 
     public UserViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is gallery User");
+        database = MainActivity.database;
+        totalMoneyExpense = new MutableLiveData<>();
+        totalMoneyIncome = new MutableLiveData<>();
+
+        initData();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    private void initData() {
+        moneyExpense = totalMoneyExpenseFromDatabase();
+        totalMoneyExpense.setValue(NumberFormat.getCurrencyInstance().format(moneyExpense));
+
+        moneyIncome = totalMoneyIncomeFromDatabase();
+        totalMoneyIncome.setValue(NumberFormat.getCurrencyInstance().format(moneyIncome));
+    }
+
+    public MutableLiveData<String> getTotalMoneyExpense() {
+        return totalMoneyExpense;
+    }
+
+    public MutableLiveData<String> getTotalMoneyIncome() {
+        return totalMoneyIncome;
+    }
+
+    private long totalMoneyExpenseFromDatabase() {
+        Cursor cursor = database.rawQuery("select sum(ExpenseMoney) as Sum from ChiTieu where UserId = " + MainActivity.USER_ID, null);
+        String sTotalMoney = "";
+        while (cursor.moveToNext()) {
+            sTotalMoney = cursor.getString(0);
+        }
+        cursor.close();
+        try {
+            long totalMoney = Long.parseLong(sTotalMoney);
+            return totalMoney;
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    private long totalMoneyIncomeFromDatabase() {
+        Cursor cursor = database.rawQuery("select sum(IncomeMoney) as Sum from ThuNhap where UserId = " + MainActivity.USER_ID, null);
+        String sTotalMoney = "";
+        while (cursor.moveToNext()) {
+            sTotalMoney = cursor.getString(0);
+        }
+        cursor.close();
+        try {
+            long totalMoney = Long.parseLong(sTotalMoney);
+            return totalMoney;
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 }
