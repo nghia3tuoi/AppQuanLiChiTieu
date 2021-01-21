@@ -23,19 +23,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.uit.quanlychitieu.AddUserActivity;
-import com.uit.quanlychitieu.DetailIncomeExpanseActivity;
+import com.uit.quanlychitieu.ui.user.adduser.AddUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.UserInfoActivity;
-import com.uit.quanlychitieu.adapter.CategoryItemAdapter;
+import com.uit.quanlychitieu.ui.userinfo.UserInfoActivity;
 import com.uit.quanlychitieu.adapter.DividerItem;
 import com.uit.quanlychitieu.adapter.UserItemAdapter;
 import com.uit.quanlychitieu.event.OnClickRecycleView;
-import com.uit.quanlychitieu.model.CategoryModel;
-import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.UserModel;
-import com.uit.quanlychitieu.ui.category.expense_manager.CategoryExpenseViewModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -106,11 +101,12 @@ public class ListUserFragment extends Fragment implements OnClickRecycleView<Use
             Intent intent = new Intent(getActivity(), UserInfoActivity.class);
             String filePath = saveTempFileImageAsByteArray(getContext(), userSelected.getImageAvatar(), "avatar");
             intent.putExtra("path", filePath);
+            intent.putExtra("userId", userSelected.getUserId());
             intent.putExtra("username", userSelected.getUserName());
-            intent.putExtra("displayname", userSelected.getDisplayName());
+            intent.putExtra("displayName", userSelected.getDisplayName());
             intent.putExtra("email", userSelected.getEmail());
-            intent.putExtra("dateadd", userSelected.dateAddFormated);
-            intent.putExtra("datemodify", userSelected.dateModifyFormated);
+            intent.putExtra("dateAdd", userSelected.dateAddFormated);
+            intent.putExtra("dateModify", userSelected.dateModifyFormated);
 
             Pair<View, String> p = Pair.create(imgUser, "imgUser");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p);

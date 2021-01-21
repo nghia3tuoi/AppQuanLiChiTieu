@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     // Load dữ liệu các khoản chi tiêu từ cơ sở dữ liệu
     public ObservableArrayList<ExpenseModel> loadDataExpenseFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-        ObservableArrayList<ExpenseModel> expanseList = new ObservableArrayList<>();
+        ObservableArrayList<ExpenseModel> expenseList = new ObservableArrayList<>();
         Cursor cursor = database.rawQuery("select * from ChiTieu where UserId = " + USER_ID, null);
         while (cursor.moveToNext()) {
             int transactionId = cursor.getInt(0);
@@ -253,10 +253,10 @@ public class MainActivity extends AppCompatActivity {
             String note = cursor.getString(5);
             int userId = cursor.getInt(6);
             ExpenseModel expense = new ExpenseModel(transactionId, categoryId, transactionDate, transactionTime, transactionMoney, note, userId);
-            expanseList.add(expense);
+            expenseList.add(expense);
         }
         cursor.close();
-        return expanseList;
+        return expenseList;
     }
 
     // Load dữ liệu các khoản thu nhập từ cơ sở dữ liệu

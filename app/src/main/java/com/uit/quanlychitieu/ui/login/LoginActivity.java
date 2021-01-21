@@ -9,46 +9,39 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.Observable;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.uit.quanlychitieu.AddUserActivity;
+import com.uit.quanlychitieu.ui.user.adduser.AddUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
+import com.uit.quanlychitieu.databinding.ActivityLoginBinding;
 import com.uit.quanlychitieu.model.UserModel;
-import com.uit.quanlychitieu.ui.expense.ExpenseViewModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
-    private TextInputEditText edtUserName, edtPassword;
     private ImageView imgLogo;
-    private Button btnLogin;
-    private TextView txtRegister;
     private ProgressDialog mProgress;
     private CheckBox chkSaveInfo;
 
+    // Danh sách người dùng được load từ cơ sở dữ liệu
     public static ObservableArrayList<UserModel> users;
     private LoginViewModel loginViewModel;
 
@@ -56,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
     public static String DATABASE_NAME = "QuanLyChiTieu.db";
     public static String DB_PATH_SUFFIX = "/databases/";
     public static SQLiteDatabase database = null;
+
+    // Lưu lại ID người dùng khi đăng nhập thành công
+    public static int USER_ID_LOGIN = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,59 +63,24 @@ public class LoginActivity extends AppCompatActivity {
         //Copy cở sở dữ liệu từ project đến dứng dụng nếu không tồn tại
         processCopy();
         users = loadDataUser();
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+        ActivityLoginBinding activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(this)).get(LoginViewModel.class);
+        activityLoginBinding.setViewModel(loginViewModel);
 
         imgLogo = findViewById(R.id.imgLogo);
         imgLogo.setImageResource(R.drawable.iconapp);
 
         chkSaveInfo = findViewById(R.id.chkSave);
-        edtUserName = findViewById(R.id.edtUsername);
-        edtPassword = findViewById(R.id.edtPassword);
-        btnLogin = findViewById(R.id.btnLogin);
         getUserInfo();
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                String userName = String.valueOf(edtUserName.getText());
-                String password = String.valueOf(edtPassword.getText());
-
-                int USER_ID_LOGIN = loginViewModel.isValid(userName, password);
-                if (USER_ID_LOGIN != -1) {
-                    createNotificationChannel();
-
-                    saveUserInfo();
-                    mProgress = new ProgressDialog(LoginActivity.this);
-                    mProgress.setMessage("Đang tải dữ liệu...");
-                    mProgress.setCancelable(false);
-                    mProgress.show();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                    intent.putExtra("USER_ID", USER_ID_LOGIN);
-
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Tên người dùng hoặc mật khẩu không hợp lệ!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        txtRegister = findViewById(R.id.txtRegister);
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, AddUserActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
+    //Lưu lại thông tin người dùng cho lần đăng nhập sau
     private void saveUserInfo() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String userName = String.valueOf(edtPassword.getText());
-        String password = String.valueOf(edtPassword.getText());
+        String userName = String.valueOf(loginViewModel.getUsername());
+        String password = String.valueOf(loginViewModel.getPassword());
         boolean isSaveInfo = chkSaveInfo.isChecked();
         if (!isSaveInfo) {
             editor.clear();
@@ -131,9 +92,10 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    //Lấy thông tin người dùng cho lần đăng nhập sau
     private void getUserInfo() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
         if (sharedPreferences == null) {
             return;
         }
@@ -141,34 +103,47 @@ public class LoginActivity extends AppCompatActivity {
         if (isSaveInfo) {
             String userName = sharedPreferences.getString("userName", "");
             String password = sharedPreferences.getString("password", "");
-            edtUserName.setText(userName);
-            edtPassword.setText(password);
+            loginViewModel.setUsername(userName);
+            loginViewModel.setPassword(password);
         } else {
-            edtUserName.setText("");
-            edtPassword.setText("");
+            loginViewModel.setUsername("");
+            loginViewModel.setPassword("");
         }
         chkSaveInfo.setChecked(isSaveInfo);
     }
 
+    //Tạo một thông báo khi người dùng đăng nhập thành công
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
 
-        String name = "Bạn đã thêm các khoản thu, chi của bạn chưa?";
-        String description = "Nhấn để mở ứng dụng";
+        String displayName = "bạn";
+        for (UserModel user : users) {
+            if (user.getUserId() == USER_ID_LOGIN) {
+                displayName = user.getDisplayName();
+                break;
+            }
+        }
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
+//        String name = "Bạn đã thêm các khoản thu, chi của bạn chưa?";
+//        String description = "Nhấn để mở ứng dụng";
+
+        String name = String.join(" ", "Chào mừng", displayName, "đã quay trở lại!");
+        String description = "Hôm nay bạn có các khoản thu, chi gì?";
+
+//        Intent intent = new Intent(this, MainActivity.class);
+//        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
 
         int notifyID = 1;
         String CHANNEL_ID = "MY_CHANNEL";
         int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.iconapp);
         Notification notification = new Notification.Builder(LoginActivity.this)
                 .setContentTitle(name)
                 .setContentText(description)
-                .setSmallIcon(R.drawable.ic_baseline_money_24)
+                .setSmallIcon(R.drawable.ic_baseline_money_24).setLargeIcon(bm)
                 .setChannelId(CHANNEL_ID)
-                .setContentIntent(pIntent)
+//                .setContentIntent(pIntent)
                 .setAutoCancel(true)
                 .build();
 
@@ -181,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // Load dữ liệu người dùng từ cơ sở dữ liệu
     private ObservableArrayList<UserModel> loadDataUser() {
-        SQLiteDatabase database = openOrCreateDatabase("QuanLyChiTieu.db", MODE_PRIVATE, null);
+        database = openOrCreateDatabase("QuanLyChiTieu.db", MODE_PRIVATE, null);
         ObservableArrayList<UserModel> userList = new ObservableArrayList<>();
         Cursor cursor = database.rawQuery("select * from User", null);
         while (cursor.moveToNext()) {
@@ -214,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // Tạo đăng dẫn của file database
     private String getDatabasePath() {
         return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
     }
@@ -238,5 +214,39 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception ex) {
             Log.e("Error", ex.toString());
         }
+    }
+
+    // Thực hiện khi người dùng đăng nhập thành công
+    @Override
+    public void onSuccess(String message) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
+        saveUserInfo();
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+        mProgress = new ProgressDialog(LoginActivity.this);
+        mProgress.setMessage("Đang tải dữ liệu...");
+        mProgress.setCancelable(false);
+        mProgress.show();
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("USER_ID", USER_ID_LOGIN);
+
+        startActivity(intent);
+    }
+
+    // Thực hiện khi người dùng đăng nhập thất bại
+    @Override
+    public void onFailure(String message) {
+
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // Thực hiện khi người dùng nhấn vào Đăng ký
+    @Override
+    public void onRegister() {
+        Intent intent = new Intent(LoginActivity.this, AddUserActivity.class);
+        startActivity(intent);
     }
 }

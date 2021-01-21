@@ -73,8 +73,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ExpenseFragment extends Fragment implements OnClickRecycleView<ExpenseModel>,
-        OnLongClickRecycleView<ExpenseModel> {
+public class ExpenseFragment extends Fragment implements OnClickRecycleView<ExpenseModel>, OnLongClickRecycleView<ExpenseModel> {
 
     private RecyclerView rcvExpense;
     private ExpenseItemAdapter expenseItemAdapter;

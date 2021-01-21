@@ -1,5 +1,7 @@
 package com.uit.quanlychitieu.ui.user.info;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,19 +11,19 @@ import com.uit.quanlychitieu.model.UserModel;
 
 public class UserInfoViewModel extends ViewModel {
 
-    private MutableLiveData<String> userName;
+    MutableLiveData<String> userName;
+    MutableLiveData<String> displayName;
+    MutableLiveData<String> email;
+    MutableLiveData<String> dateAdd;
+    MutableLiveData<String> dateModify;
 
-    private MutableLiveData<String> displayName;
-
-    private MutableLiveData<String> email;
-
-    private MutableLiveData<String> dateAdd;
-
-    private MutableLiveData<String> dateModify;
-
-    private UserModel user;
+    UserModel user;
+    SQLiteDatabase database;
+    int USER_ID;
 
     public UserInfoViewModel() {
+        database = MainActivity.database;
+        USER_ID = MainActivity.USER_ID;
         userName = new MutableLiveData<>();
         displayName = new MutableLiveData<>();
         email = new MutableLiveData<>();
@@ -64,5 +66,13 @@ public class UserInfoViewModel extends ViewModel {
 
     public LiveData<String> getDateModify() {
         return dateModify;
+    }
+
+    public void deleteUser() {
+        //xóa dữ liệu trong database
+        String sUserId = String.valueOf(USER_ID);
+        database.delete("ChiTieu", "UserId = ?", new String[]{String.valueOf(sUserId)});
+        database.delete("ThuNhap", "UserId = ?", new String[]{String.valueOf(sUserId)});
+        database.delete("User", "UserId = ?", new String[]{String.valueOf(sUserId)});
     }
 }

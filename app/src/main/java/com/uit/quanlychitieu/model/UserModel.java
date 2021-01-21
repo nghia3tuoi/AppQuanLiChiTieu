@@ -39,13 +39,13 @@ public class UserModel extends BaseObservable {
     @Bindable
     public Bitmap bitmap;
 
-    private void formatData() {
+    public void formatData() {
         if (imageAvatar != null) {
             bitmap = BitmapFactory.decodeByteArray(imageAvatar, 0, imageAvatar.length);
         }
 
         String sDateAdd = dateAdd + "";
-        String sDateModify = dateAdd + "";
+        String sDateModify = dateModify + "";
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         //Định dạng ngày tháng

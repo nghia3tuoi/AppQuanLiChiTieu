@@ -3,7 +3,9 @@ package com.uit.quanlychitieu.ui.user.info;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -117,8 +119,15 @@ public class UserInfoFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mViewModel.deleteUser();
                     Toast.makeText(getActivity(), "Xóa người dùng thành công", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
+                    Activity activity = getActivity();
+                    Intent intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             });
             dialog.show();

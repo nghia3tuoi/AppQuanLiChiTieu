@@ -7,7 +7,7 @@
     android:layout_marginRight="20dp"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".UserInfoActivity">
+    tools:context=".ui.userinfo.UserInfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

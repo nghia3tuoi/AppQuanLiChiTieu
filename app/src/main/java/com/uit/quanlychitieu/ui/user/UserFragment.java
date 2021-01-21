@@ -4,18 +4,18 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,35 +26,30 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.uit.quanlychitieu.EditUserActivity;
+import com.uit.quanlychitieu.ui.login.LoginActivity;
+import com.uit.quanlychitieu.ui.user.edituser.EditUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.UserInfoActivity;
-import com.uit.quanlychitieu.adapter.UserAdapter;
-import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.UserModel;
-import com.uit.quanlychitieu.ui.statistic.StatisticFragment;
-import com.uit.quanlychitieu.ui.statistic.StatisticViewModel;
-import com.uit.quanlychitieu.ui.statistic.category_statistic.CategoryStatisticFragment;
-import com.uit.quanlychitieu.ui.statistic.data_statistic.DataStatisticFragment;
-import com.uit.quanlychitieu.ui.statistic.month_statistic.MonthStatisticFragment;
-import com.uit.quanlychitieu.ui.statistic.week_statistic.WeekStatisticFragment;
 import com.uit.quanlychitieu.ui.user.info.UserInfoFragment;
-import com.uit.quanlychitieu.ui.user.info.UserInfoViewModel;
 import com.uit.quanlychitieu.ui.user.listuser.ListUserFragment;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,7 +57,7 @@ public class UserFragment extends Fragment {
 
     private UserViewModel mViewModel;
 
-    private Activity activity;
+    private static final int REQUEST_CODE = 95;
 
     private ViewPager viewPager;
     private UserFragment.SectionsPagerAdapter sectionsPagerAdapter;
@@ -80,7 +75,7 @@ public class UserFragment extends Fragment {
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserViewModel.class);
         View root = inflater.inflate(R.layout.fragment_user, container, false);
 
-        for (UserModel user : MainActivity.users) {
+        for (UserModel user : LoginActivity.users) {
             if (user.getUserId() == MainActivity.USER_ID) {
                 this.user = user;
                 break;
@@ -101,7 +96,6 @@ public class UserFragment extends Fragment {
 
         displayUserInfo();
 
-        activity = (Activity) root.getContext();
         sectionsPagerAdapter = new UserFragment.SectionsPagerAdapter(getChildFragmentManager());
         viewPager = root.findViewById(R.id.container);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -128,6 +122,7 @@ public class UserFragment extends Fragment {
     private void displayUserInfo() {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd-mm-yyyy");
         txtDisplayName.setText(user != null ? user.getDisplayName() : "Chào mừng!");
+        imgUser.setImageBitmap(user.bitmap);
     }
 
     private final View.OnClickListener clickEditUserInfo = new View.OnClickListener() {
@@ -142,9 +137,44 @@ public class UserFragment extends Fragment {
 
             Pair<View, String> p = Pair.create(imgUser, "imgUser");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p);
-            startActivity(intent, options.toBundle());
+            startActivityForResult(intent, REQUEST_CODE, options.toBundle());
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == EditUserActivity.RESULT_CODE) {
+            String newDisplayName = data.getStringExtra("newDisplayName");
+            String newEmail = data.getStringExtra("newEmail");
+            String pathImg = data.getStringExtra("path");
+            String newDateModify = data.getStringExtra("dateModify");
+
+            user.setDisplayName(newDisplayName);
+            user.setEmail(newEmail);
+            user.setDateModify(newDateModify);
+            try {
+                byte[] img = getByteArray(pathImg);
+                user.setImageAvatar(img);
+            } catch (Exception ex) {
+                Log.e("ERROR", ex.getMessage());
+            }
+            user.formatData();
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
+        }
+    }
+
+    private byte[] getByteArray(String filePath) throws IOException {
+        File file = new File(filePath);
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
+        BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+        buf.read(bytes, 0, bytes.length);
+        buf.close();
+        return bytes;
+    }
 
     private String saveTempFileImageAsByteArray(Context context, byte[] img, String name) {
         File outputDir = context.getCacheDir();
@@ -190,6 +220,7 @@ public class UserFragment extends Fragment {
             btnYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mViewModel.clearDataUser();
                     Toast.makeText(getActivity(), "Tất cả dữ liệu đã được xóa", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }

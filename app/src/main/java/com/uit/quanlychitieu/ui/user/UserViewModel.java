@@ -15,15 +15,18 @@ import java.text.NumberFormat;
 
 public class UserViewModel extends ViewModel {
 
-    private SQLiteDatabase database;
-    private long moneyExpense;
-    private MutableLiveData<String> totalMoneyExpense;
+    SQLiteDatabase database;
+    long moneyExpense;
+    MutableLiveData<String> totalMoneyExpense;
 
-    private long moneyIncome;
-    private MutableLiveData<String> totalMoneyIncome;
+    long moneyIncome;
+    MutableLiveData<String> totalMoneyIncome;
+    int USER_ID;
 
     public UserViewModel() {
+
         database = MainActivity.database;
+        USER_ID = MainActivity.USER_ID;
         totalMoneyExpense = new MutableLiveData<>();
         totalMoneyIncome = new MutableLiveData<>();
 
@@ -74,5 +77,18 @@ public class UserViewModel extends ViewModel {
         } catch (Exception ex) {
             return 0;
         }
+    }
+
+    public void clearDataUser() {
+        MainActivity.expenses.clear();
+        MainActivity.incomes.clear();
+
+        totalMoneyExpense.setValue(NumberFormat.getCurrencyInstance().format(0));
+        totalMoneyIncome.setValue(NumberFormat.getCurrencyInstance().format(0));
+
+        //xóa dữ liệu trong database
+        String sUserId = String.valueOf(USER_ID);
+        database.delete("ChiTieu", "UserId = ?", new String[]{String.valueOf(sUserId)});
+        database.delete("ThuNhap", "UserId = ?", new String[]{String.valueOf(sUserId)});
     }
 }

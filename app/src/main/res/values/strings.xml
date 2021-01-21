@@ -74,6 +74,8 @@
     <string name="email_sample">1952293@gm.uit.edu.vn</string>
     <string name="change_password">Đổi mật khẩu</string>
 
+    <string name="add_user">Thêm người dùng</string>
+
     <string name="category_expense">Danh mục chi tiêu</string>
     <string name="category_income">Danh mục thu nhập</string>
     <string name="money_expense">Số tiền chi</string>

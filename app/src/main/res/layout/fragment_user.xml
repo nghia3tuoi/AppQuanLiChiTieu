@@ -91,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="3.000.000 đ"
-                            android:textColor="@color/grey_dam"
+                            android:textColor="@color/colorMoneyExpense"
                             android:textSize="22dp" />
                     </LinearLayout>
 
@@ -115,7 +115,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="1.580.000 đ"
-                            android:textColor="@color/grey_dam"
+                            android:textColor="@color/colorMoneyIncome"
                             android:textSize="22dp" />
                     </LinearLayout>
 

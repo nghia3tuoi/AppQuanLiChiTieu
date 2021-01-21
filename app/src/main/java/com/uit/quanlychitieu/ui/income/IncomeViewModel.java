@@ -59,8 +59,11 @@ public class IncomeViewModel extends ViewModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formatDate = dateFormat.format(d);
 
-        int expenseid = listIncome.get(listIncome.size() - 1).getIncomeId() + 1;
-        IncomeModel income = new IncomeModel(expenseid, categoryId, formatDate, time + ":00", money, note, MainActivity.USER_ID);
+        int incomeId = 1;
+        if(listIncome.size() != 0) {
+            incomeId = listIncome.get(listIncome.size() - 1).getIncomeId() + 1;
+        }
+        IncomeModel income = new IncomeModel(incomeId, categoryId, formatDate, time + ":00", money, note, MainActivity.USER_ID);
         listIncome.add(income);
         MainActivity.incomes.add(income);
         listIncomeLiveData.setValue(listIncome);

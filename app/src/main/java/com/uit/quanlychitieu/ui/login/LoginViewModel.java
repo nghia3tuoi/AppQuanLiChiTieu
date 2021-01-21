@@ -3,7 +3,12 @@ package com.uit.quanlychitieu.ui.login;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.databinding.library.baseAdapters.BR;
@@ -21,25 +26,63 @@ import java.util.Observable;
 
 public class LoginViewModel extends ViewModel {
 
-    private List<UserModel> listUser;
+    private LoginModel loginModel;
+    private LoginCallbacks loginCallbacks;
 
-    public LoginViewModel() {
-        initData();
+    public LoginViewModel(LoginCallbacks loginCallbacks) {
+        this.loginCallbacks = loginCallbacks;
+        loginModel = new LoginModel();
     }
 
-    private void initData() {
-        listUser = new ArrayList<>(LoginActivity.users);
+    public LoginModel getLoginModel() {
+        return loginModel;
     }
 
-    public int isValid(String userName, String password) {
-        if (userName == null || password == null || userName.isEmpty() || password.isEmpty()) {
-            return -1;
+    public void setLoginModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
+    }
+
+    public LoginCallbacks getLoginCallbacks() {
+        return loginCallbacks;
+    }
+
+    public void setLoginCallbacks(LoginCallbacks loginCallbacks) {
+        this.loginCallbacks = loginCallbacks;
+    }
+
+    private String username;
+
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void onClickButtonLogin(View view) {
+
+        loginModel = new LoginModel(username, password);
+        int result = loginModel.checkUserInfo();
+        LoginActivity.USER_ID_LOGIN = result;
+        if (result == -1) {
+            loginCallbacks.onFailure("Tên người dùng hoặc mật khẩu không đúng!");
+        } else {
+            loginCallbacks.onSuccess("Đăng nhập thành công");
         }
-        for (UserModel user : listUser) {
-            if (userName.equals(user.getUserName()) && password.equals(user.getPassword())) {
-                return user.getUserId();
-            }
-        }
-        return -1;
+    }
+
+    public void onClickRegister(View view) {
+        loginCallbacks.onRegister();
     }
 }

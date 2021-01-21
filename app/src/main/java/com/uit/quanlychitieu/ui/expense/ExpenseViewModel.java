@@ -58,8 +58,11 @@ public class ExpenseViewModel extends ViewModel {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formatDate = dateFormat.format(d);
 
-        int expenseid = listExpense.get(listExpense.size() - 1).getExpenseId() + 1;
-        ExpenseModel expense = new ExpenseModel(expenseid, categoryId, formatDate, time + ":00", money, note, USER_ID);
+        int expenseId = 1;
+        if (listExpense.size() != 0) {
+            expenseId = listExpense.get(listExpense.size() - 1).getExpenseId() + 1;
+        }
+        ExpenseModel expense = new ExpenseModel(expenseId, categoryId, formatDate, time + ":00", money, note, USER_ID);
         listExpense.add(expense);
         MainActivity.expenses.add(expense);
         listExpenseLiveData.setValue(listExpense);
