@@ -7,14 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 public class StatisticViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
-
     public StatisticViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 }

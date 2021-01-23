@@ -91,7 +91,7 @@ public class ExpenseViewModel extends ViewModel {
 
         //xóa dữ liệu trong database
         int expenseId = expense.getExpenseId();
-        database.delete("ChiTieu", "ExpenseId = ?", new String[]{String.valueOf(expenseId)});
+        int result = database.delete("ChiTieu", "ExpenseId = ?", new String[]{String.valueOf(expenseId)});
     }
 
     public boolean updateExpense(int expenseId, int categoryId, String date, String time, int money, String note) {

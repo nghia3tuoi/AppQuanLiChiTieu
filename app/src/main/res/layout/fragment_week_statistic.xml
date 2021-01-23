@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.statistic.week_statistic.WeekStatisticFragment"
-    android:gravity="center">
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.uit.quanlychitieu.ui.statistic.week_statistic.WeekStatisticViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".ui.statistic.week_statistic.WeekStatisticFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:text="Ngày bắt đầu" />
+
+            <TextView
+                android:id="@+id/txtStartDate"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.5"
+                android:background="@drawable/background_edttext"
+                android:gravity="center|left"
+                android:paddingLeft="20dp"
+                android:text="@={viewModel.startDate}" />
+
+            <ImageView
+                android:id="@+id/imgSelectStartDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:onClick="@{viewModel::onClickSelectStartDate}"
+                android:padding="10dp"
+                android:src="@drawable/ic_baseline_date_24"
+                app:tint="@color/colorPrimary" />
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</layout>

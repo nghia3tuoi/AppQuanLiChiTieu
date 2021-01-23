@@ -1,51 +1,138 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="8"
-    tools:context=".ui.statistic.category_statistic.CategoryStatisticFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:layout_above="@+id/seekBar1" />
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.uit.quanlychitieu.ui.statistic.category_statistic.CategoryStatisticViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        android:gravity="center"
-        android:layout_weight="1">
-        <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/seekBar2"
-            android:layout_toLeftOf="@+id/tvXMax"
-            android:layout_weight="4"
-            android:layout_marginRight="5dp"
-            android:max="25"
-            android:paddingBottom="12dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:weightSum="10"
+        tools:context=".ui.statistic.category_statistic.CategoryStatisticFragment">
 
-        <TextView
-            android:id="@+id/tvXMax"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="-"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/seekBar1"
+            android:layout_weight="7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:weightSum="7">
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|left"
+                    android:textSize="14dp"
+                    android:text="Chọn loại" />
+
+                <Spinner
+                    android:id="@+id/spnType"
+                    android:layout_width="0dp"
+                    android:paddingLeft="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5.5"
+                    android:entries="@array/type_spiner"
+                    android:background="@drawable/background_edttext" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="7">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|left"
+                    android:textSize="14dp"
+                    android:text="Từ ngày" />
+
+                <TextView
+                    android:id="@+id/txtFromDate"
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.5"
+                    android:background="@drawable/background_edttext"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@={viewModel.startDate}" />
+
+                <ImageView
+                    android:id="@+id/imgSelectStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:onClick="@{viewModel::onClickSelectStartDate}"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_date_24"
+                    app:tint="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="7">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|left"
+                    android:textSize="14dp"
+                    android:text="Đến ngày" />
+
+                <TextView
+                    android:id="@+id/txtToDate"
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.5"
+                    android:background="@drawable/background_edttext"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:text="@={viewModel.endDate}" />
+
+                <ImageView
+                    android:id="@+id/imgSelectEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:onClick="@{viewModel::onClickSelectEndDate}"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_date_24"
+                    app:tint="@color/colorPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

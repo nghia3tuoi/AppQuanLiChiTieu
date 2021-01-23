@@ -59,8 +59,9 @@ public class AddUserActivity extends AppCompatActivity implements AddUserCallbac
         addUserViewModel = new ViewModelProvider(this, new AddUserViewModelFactory(this)).get(AddUserViewModel.class);
         activityAddUserBinding.setViewModel(addUserViewModel);
 
-//        toolbar = findViewById(R.id.toolbar_id);
+//        toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+//        toolbar.setTitle(R.string.add_user);
 
         imgUser = findViewById(R.id.imgUser);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.username_detail);

@@ -34,16 +34,10 @@ public class StatisticFragment extends Fragment {
     private StatisticFragment.SectionsPagerAdapter sectionsPagerAdapter;
     private TabLayout tabLayout;
 
-    private Activity activity;
-
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        statisticViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(StatisticViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        statisticViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(StatisticViewModel.class);
         View root = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        activity = (Activity) root.getContext();
         sectionsPagerAdapter = new StatisticFragment.SectionsPagerAdapter(getChildFragmentManager());
         viewPager = root.findViewById(R.id.container);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -62,20 +56,13 @@ public class StatisticFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
-            if (position == 0)
-            {
+            if (position == 0) {
                 fragment = new DataStatisticFragment();
-            }
-            else if (position == 1)
-            {
+            } else if (position == 1) {
                 fragment = new CategoryStatisticFragment();
-            }
-            else if(position == 2)
-            {
+            } else if (position == 2) {
                 fragment = new WeekStatisticFragment();
-            }
-            else if(position == 3)
-            {
+            } else if (position == 3) {
                 fragment = new MonthStatisticFragment();
             }
             return fragment;
