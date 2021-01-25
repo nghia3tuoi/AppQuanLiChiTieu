@@ -105,9 +105,9 @@ public class UserInfoFragment extends Fragment {
             final Button btnYes = dialog.findViewById(R.id.btnYes);
             final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-            txt_Titleconfirm.setText("Tất cả thông tin và dữ liệu người dùng sẽ bị xóa, bạn chắc chắn?");
-            btnNo.setText("Hủy bỏ");
-            btnYes.setText("Đồng ý");
+            txt_Titleconfirm.setText(getResources().getString(R.string.user_question_remove_account));
+            btnNo.setText(getResources().getString(R.string.expense_income_cancel));
+            btnYes.setText(getResources().getString(R.string.user_ok));
 
             btnNo.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,7 +120,7 @@ public class UserInfoFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     mViewModel.deleteUser();
-                    Toast.makeText(getActivity(), "Xóa người dùng thành công", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.notify_remove_account_success), Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     Activity activity = getActivity();
                     Intent intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());

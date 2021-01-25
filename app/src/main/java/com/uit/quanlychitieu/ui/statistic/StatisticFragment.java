@@ -17,10 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.uit.quanlychitieu.Language;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.ui.category.CategoryFragment;
 import com.uit.quanlychitieu.ui.category.expense_manager.CategoryExpenseFragment;
 import com.uit.quanlychitieu.ui.category.income_manager.CategoryIncomeFragment;
+import com.uit.quanlychitieu.ui.login.LoginActivity;
 import com.uit.quanlychitieu.ui.statistic.category_statistic.CategoryStatisticFragment;
 import com.uit.quanlychitieu.ui.statistic.data_statistic.DataStatisticFragment;
 import com.uit.quanlychitieu.ui.statistic.month_statistic.MonthStatisticFragment;
@@ -35,6 +37,8 @@ public class StatisticFragment extends Fragment {
     private TabLayout tabLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Language.setLanguage(getContext(), LoginActivity.LANGUAGE);
         statisticViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(StatisticViewModel.class);
         View root = inflater.inflate(R.layout.fragment_statistic, container, false);
 
@@ -77,13 +81,13 @@ public class StatisticFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "DỮ LIỆU";
+                    return getResources().getString(R.string.statistics_data_title);
                 case 1:
-                    return "THỐNG KÊ TỪNG LOẠI";
+                    return getResources().getString(R.string.statistics_category_title);
                 case 2:
-                    return "THỐNG KÊ THEO TUẦN";
+                    return getResources().getString(R.string.statistics_week_title);
                 case 3:
-                    return "THỐNG KÊ THEO THÁNG";
+                    return getResources().getString(R.string.statistics_month_title);
             }
             return null;
         }

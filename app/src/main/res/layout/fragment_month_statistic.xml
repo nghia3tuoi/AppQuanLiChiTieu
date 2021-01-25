@@ -41,7 +41,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Chọn năm" />
+                    android:text="@string/statistics_select_year" />
 
                 <Spinner
                     android:id="@+id/spnYear"
@@ -65,7 +65,7 @@
                     android:layout_weight="1"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Hiển thị" />
+                    android:text="@string/statistics_display" />
 
                 <SeekBar
                     android:id="@+id/seekBarMonth"

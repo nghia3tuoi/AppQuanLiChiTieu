@@ -22,15 +22,18 @@ import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.uit.quanlychitieu.Language;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.databinding.ActivityEditUserBinding;
 import com.uit.quanlychitieu.databinding.ActivityLoginBinding;
 import com.uit.quanlychitieu.ui.expense.ExpenseViewModel;
+import com.uit.quanlychitieu.ui.login.LoginActivity;
 import com.uit.quanlychitieu.ui.login.LoginViewModel;
 import com.uit.quanlychitieu.ui.login.LoginViewModelFactory;
 
@@ -59,8 +62,15 @@ public class EditUserActivity extends AppCompatActivity implements EditUserCallb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Language.setLanguage(EditUserActivity.this, LoginActivity.LANGUAGE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getResources().getString(R.string.edit_user_info_title));
+        }
 
         ActivityEditUserBinding activityEditUserBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_user);
         mViewModel = new ViewModelProvider(this, new EditUserViewModelFactory(this)).get(EditUserViewModel.class);

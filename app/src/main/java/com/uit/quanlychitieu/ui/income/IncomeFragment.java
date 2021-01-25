@@ -255,9 +255,10 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
         final Button btnYes = dialog.findViewById(R.id.btnYes);
         final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-        txt_Titleconfirm.setText("Bạn có muốn xóa khoản thu này không?");
-        btnNo.setText("Hủy bỏ");
-        btnYes.setText("Xác nhận");
+
+        txt_Titleconfirm.setText(getResources().getString(R.string.income_question_delete));
+        btnNo.setText(getResources().getString(R.string.expense_income_cancel));
+        btnYes.setText(getResources().getString(R.string.expense_income_confirm));
 
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +272,7 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
             public void onClick(View v) {
                 incomeViewModel.deleteIncome(position);
                 dialog.dismiss();
-                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.expense_income_delete_success), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -327,8 +328,8 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
             }
         }
 
-        txtTitle.setText("CHỈNH SỬA KHOẢN THU");
-        btnAdd.setText("Thay đổi");
+        txtTitle.setText(getResources().getString(R.string.edit_income_dialog_title));
+        btnAdd.setText(getResources().getString(R.string.edit_dialog_edit));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -424,7 +425,7 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
                 try {
 
                     if (edtMoney.getText().equals("")) {
-                        Toast.makeText(getActivity(), "Dữ liệu không hợp lệ!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.warning_input_data_invalid), Toast.LENGTH_LONG).show();
                         return;
                     }
                     incomeViewModel.updateIncome(income.getIncomeId(),
@@ -433,9 +434,9 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
                             String.valueOf(edtTime.getText()),
                             Integer.parseInt(edtMoney.getText().toString()),
                             String.valueOf(edtNote.getText()));
-                    Toast.makeText(getActivity(), "Dữ liệu đã được cập nhật", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.notify_data_updated), Toast.LENGTH_SHORT).show();
                 } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Dữ liệu bạn nhập vào không hợp lệ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.warning_input_data_invalid), Toast.LENGTH_LONG).show();
                 }
                 dialog.dismiss();
             }
@@ -578,7 +579,7 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
                 //Thêm khoản chi tiêu
                 try {
                     if (edtMoney.getText().toString().equals("")) {
-                        Toast.makeText(getActivity(), "Bạn chưa nhập số tiền", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.notify_no_enter_money), Toast.LENGTH_LONG).show();
                         return;
                     } else {
                         incomeViewModel.addIncome(positionSelected,
@@ -588,7 +589,7 @@ public class IncomeFragment extends Fragment implements OnClickRecycleView<Incom
                                 String.valueOf(edtNote.getText()));
                     }
                 } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Dữ liệu bạn nhập vào không hợp lệ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.warning_input_data_invalid), Toast.LENGTH_LONG).show();
                 }
                 dialog.dismiss();
             }

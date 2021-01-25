@@ -23,9 +23,14 @@ import java.util.Calendar;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.O)
+
+    private Context context;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        this.context = context;
         createNotificationChannel(context);
 //        Calendar calendar = Calendar.getInstance();
 //        DateFormat format = SimpleDateFormat.getDateInstance();
@@ -36,10 +41,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel(Context context) {
 
-        String name = "Bạn đã thêm các khoản thu, chi của bạn chưa?";
-        String description = "Nhấn để mở ứng dụng";
+        Language.setLanguage(context, LoginActivity.LANGUAGE);
+        String name = context.getResources().getString(R.string.notification_name1);
+        String description = context.getResources().getString(R.string.notification_description1);
 
-        Intent intent = new Intent(context, LoginActivity .class);
+        Intent intent = new Intent(context, LoginActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
 
         int notifyID = 2;

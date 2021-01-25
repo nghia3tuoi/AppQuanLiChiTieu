@@ -129,10 +129,10 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
         final Button btnAdd = dialog.findViewById(R.id.btnAdd);
         final Button btnBack = dialog.findViewById(R.id.btnBack);
 
-        txtTitleDialog.setText("THÊM LOẠI CHI");
-        txtTitleCategoryName.setText("Tên loại chi");
-        edtNameCategory.setHint("Mua sắm");
-        edtDescription.setHint("Số tiền dùng cho việc mua sắm");
+        txtTitleDialog.setText(getResources().getString(R.string.category_add_expense_category));
+        txtTitleCategoryName.setText(getResources().getString(R.string.category_name_expense_category));
+        edtNameCategory.setHint(getResources().getString(R.string.category_name_expense_sample));
+        edtDescription.setHint(getResources().getString(R.string.category_description_expense_sample));
 
         //Đóng cửa sổ dialog
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,7 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
                 byte[] imgCategory = MainActivity.getBitmapAsByteArray(bm);
                 boolean added = categoryExpenseViewModel.addCategory(String.valueOf(edtNameCategory.getText()), String.valueOf(edtDescription.getText()), imgCategory);
                 dialog.dismiss();
-                Toast.makeText(getActivity(), added == true ? "Thêm thành công" : "Danh mục này đã tồn tại!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), added == true ? getResources().getString(R.string.category_add_success) : getResources().getString(R.string.category_already_exits), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -171,9 +171,9 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
         final Button btnYes = dialog.findViewById(R.id.btnYes);
         final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-        txt_Titleconfirm.setText("Các khoản chi liên quan cũng sẽ bị xóa. Bạn có muốn xóa loại chi này không?");
-        btnNo.setText("Hủy bỏ");
-        btnYes.setText("Xác nhận");
+        txt_Titleconfirm.setText(getResources().getString(R.string.category_question_delete_expense));
+        btnNo.setText(getResources().getString(R.string.expense_income_cancel));
+        btnYes.setText(getResources().getString(R.string.expense_income_confirm));
 
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +189,7 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
                 //Xóa loại chi
                 categoryExpenseViewModel.deleteCategory(position);
                 dialog.dismiss();
-                Toast.makeText(getActivity(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.expense_income_delete_success), Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
@@ -215,13 +215,14 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
         final Button btnAdd = dialog.findViewById(R.id.btnAdd);
         final Button btnBack = dialog.findViewById(R.id.btnBack);
 
-        txtTitleDialog.setText("CHỈNH SỬA LOẠI CHI");
-        txtTitleCategoryName.setText("Tên loại chi");
-        btnBack.setText("Trở lại");
-        btnAdd.setText("Thay đổi");
+        txtTitleDialog.setText(getResources().getString(R.string.category_edit_expense_category));
+        txtTitleCategoryName.setText(getResources().getString(R.string.category_name_expense_category));
+        edtNameCategory.setHint(getResources().getString(R.string.category_name_expense_sample));
+        edtDescription.setHint(getResources().getString(R.string.category_description_expense_sample));
 
-        edtNameCategory.setHint("Mua sắm");
-        edtDescription.setHint("Số tiền dùng cho việc mua sắm");
+        btnBack.setText(getResources().getString(R.string.add_dialog_back));
+        btnAdd.setText(getResources().getString(R.string.dialog_change));
+
         edtNameCategory.setText(categoryExpense.getName());
         edtDescription.setText(categoryExpense.getDescription());
 
@@ -242,7 +243,7 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
                         String.valueOf(edtNameCategory.getText()),
                         String.valueOf(edtDescription.getText()));
                 dialog.dismiss();
-                Toast.makeText(getActivity(), "Thay đổi đã được cập nhật", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.notify_data_updated), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -259,7 +260,7 @@ public class CategoryExpenseFragment extends Fragment implements OnClickRecycleV
         TextView txtDelete = v.findViewById(R.id.txtDelete);
         TextView txtClose = v.findViewById(R.id.txtClose);
         if (position >= 0 && position <= 4) {
-            Toast.makeText(getActivity(), "Bạn không thể sửa hay xóa mục này", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.notify_non_edit_delete), Toast.LENGTH_SHORT).show();
             return;
         }
 

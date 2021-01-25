@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.uit.quanlychitieu.model.ExpenseModel;
@@ -34,6 +35,11 @@ public class DetailIncomeExpanseActivity extends AppCompatActivity implements Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_income_expanse);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getResources().getString(R.string.detail));
+        }
 
         imgCategory = findViewById(R.id.imgCatogory);
         imgDate = findViewById(R.id.imgDate);

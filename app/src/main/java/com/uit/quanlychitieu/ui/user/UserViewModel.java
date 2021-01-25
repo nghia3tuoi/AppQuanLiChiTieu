@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.uit.quanlychitieu.MainActivity;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class UserViewModel extends ViewModel {
 
@@ -34,11 +35,15 @@ public class UserViewModel extends ViewModel {
     }
 
     private void initData() {
+
+        Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+
         moneyExpense = totalMoneyExpenseFromDatabase();
-        totalMoneyExpense.setValue(NumberFormat.getCurrencyInstance().format(moneyExpense));
+        totalMoneyExpense.setValue(currency.format(moneyExpense));
 
         moneyIncome = totalMoneyIncomeFromDatabase();
-        totalMoneyIncome.setValue(NumberFormat.getCurrencyInstance().format(moneyIncome));
+        totalMoneyIncome.setValue(currency.format(moneyIncome));
     }
 
     public MutableLiveData<String> getTotalMoneyExpense() {
@@ -80,11 +85,15 @@ public class UserViewModel extends ViewModel {
     }
 
     public void clearDataUser() {
+
         MainActivity.expenses.clear();
         MainActivity.incomes.clear();
 
-        totalMoneyExpense.setValue(NumberFormat.getCurrencyInstance().format(0));
-        totalMoneyIncome.setValue(NumberFormat.getCurrencyInstance().format(0));
+        Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+
+        totalMoneyExpense.setValue(currency.format(0));
+        totalMoneyIncome.setValue(currency.format(0));
 
         //xóa dữ liệu trong database
         String sUserId = String.valueOf(USER_ID);

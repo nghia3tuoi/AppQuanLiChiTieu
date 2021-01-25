@@ -44,7 +44,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Chọn loại" />
+                    android:text="@string/statistics_select_type" />
 
                 <Spinner
                     android:id="@+id/spnType"
@@ -70,7 +70,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Từ ngày" />
+                    android:text="@string/statistics_from_date" />
 
                 <TextView
                     android:id="@+id/txtFromDate"
@@ -108,7 +108,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Đến ngày" />
+                    android:text="@string/statistics_to_date" />
 
                 <TextView
                     android:id="@+id/txtToDate"

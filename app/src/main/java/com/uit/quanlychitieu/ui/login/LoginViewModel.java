@@ -1,6 +1,7 @@
 package com.uit.quanlychitieu.ui.login;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModel;
 
 import com.uit.quanlychitieu.MainActivity;
+import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.UserModel;
 import com.uit.quanlychitieu.ui.user.listuser.ListUserViewModel;
@@ -75,10 +77,11 @@ public class LoginViewModel extends ViewModel {
         loginModel = new LoginModel(username, password);
         int result = loginModel.checkUserInfo();
         LoginActivity.USER_ID_LOGIN = result;
+
         if (result == -1) {
-            loginCallbacks.onFailure("Tên người dùng hoặc mật khẩu không đúng!");
+            loginCallbacks.onFailure(false);
         } else {
-            loginCallbacks.onSuccess("Đăng nhập thành công");
+            loginCallbacks.onSuccess(true);
         }
     }
 

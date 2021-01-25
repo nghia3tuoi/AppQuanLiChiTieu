@@ -6,16 +6,16 @@
       android:entries="@array/language_list"
       android:entryValues="@array/language_list"
       android:key="pref_language"
-      android:title="@string/language"
-      android:summary="@string/language_description"
+      android:title="@string/settings_language"
+      android:summary="@string/settings_laguage_description"
       android:persistent="true"
       android:defaultValue="@string/vietnamese"/>
     <SwitchPreference
         android:key="switch_reminder"
-        android:title="@string/reminder"
-        android:summary="@string/reminder_description"/>
+        android:title="@string/settings_notification_reminder"
+        android:summary="@string/settings_reminder_description"/>
     <SwitchPreference
         android:key="switch_advertise"
-        android:title="@string/ad_title"
-        android:summary="@string/ad_description"/>
+        android:title="@string/settings_ad"
+        android:summary="@string/settings_ad_description"/>
 </PreferenceScreen>

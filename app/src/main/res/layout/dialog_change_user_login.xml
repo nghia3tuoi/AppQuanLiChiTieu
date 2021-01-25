@@ -17,7 +17,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="ĐỔI NGƯỜI DÙNG"
+        android:text="@string/change_user_dialog_title"
         android:textColor="@color/grey_dam"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -58,7 +58,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/background_edttext"
-            android:hint="Nhập mật khẩu"
+            android:hint="@string/add_user_password"
             android:textSize="16dp"
             android:inputType="textPassword"
             android:padding="12dp"/>
@@ -89,7 +89,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="Trở lại"
+            android:text="@string/add_dialog_back"
             android:textColor="@color/colorTitle" />
 
         <Button
@@ -100,7 +100,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:text="Đăng nhập"
+            android:text="@string/change_user_dialog_login"
             android:textColor="@color/colorTitle" />
     </LinearLayout>
 

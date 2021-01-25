@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ExpenseModel extends BaseObservable {
     private int expenseId;
@@ -102,7 +103,9 @@ public class ExpenseModel extends BaseObservable {
         timeFormated = timeFormat.format(time);
 
         //Định dạng tiền
-        moneyFormated = "- " + NumberFormat.getCurrencyInstance().format(expenseMoney);
+        Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+        moneyFormated = "- " + currency.format(expenseMoney);
     }
 
     public ExpenseModel(int expenseId, int categoryId, String expenseDate, String expenseTime, int expenseMoney, String note, int userId) {

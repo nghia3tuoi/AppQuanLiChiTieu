@@ -25,9 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.uit.quanlychitieu.Language;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.model.UserModel;
@@ -64,8 +66,16 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Language.setLanguage(UserInfoActivity.this, LoginActivity.LANGUAGE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getResources().getString(R.string.user_info_title));
+        }
+
         mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(UserInfoViewModel.class);
 
         //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);

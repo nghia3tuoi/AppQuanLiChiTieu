@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,79 +82,84 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //View view = inflater.inflate(R.layout.fragment_month_statistic, container, false);
-        FragmentMonthStatisticBinding fragmentDataStatisticBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_month_statistic, container, false);
-        mViewModel = new ViewModelProvider(this, new MonthStatisticViewModelFactory(this)).get(MonthStatisticViewModel.class);
-        fragmentDataStatisticBinding.setViewModel(mViewModel);
+        try {
 
-        View view = fragmentDataStatisticBinding.getRoot();
+            FragmentMonthStatisticBinding fragmentDataStatisticBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_month_statistic, container, false);
+            mViewModel = new ViewModelProvider(this, new MonthStatisticViewModelFactory(this)).get(MonthStatisticViewModel.class);
+            fragmentDataStatisticBinding.setViewModel(mViewModel);
 
-        tvX = view.findViewById(R.id.txtXMax);
+            View view = fragmentDataStatisticBinding.getRoot();
+            tvX = view.findViewById(R.id.txtXMax);
 
-        spnYear = view.findViewById(R.id.spnYear);
-        setDataSpinner();
-        spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mViewModel.setPositionSelected(position);
-            }
+            spnYear = view.findViewById(R.id.spnYear);
+            setDataSpinner();
+            spnYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mViewModel.setPositionSelected(position);
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+                }
+            });
 
-        seekBarX = view.findViewById(R.id.seekBarMonth);
-        seekBarX.setOnSeekBarChangeListener(this);
+            seekBarX = view.findViewById(R.id.seekBarMonth);
+            seekBarX.setOnSeekBarChangeListener(this);
 
-        chart = view.findViewById(R.id.barChart);
-        chart.setOnChartValueSelectedListener(this);
-        chart.getDescription().setEnabled(false);
+            chart = view.findViewById(R.id.barChart);
+            chart.setOnChartValueSelectedListener(this);
+            chart.getDescription().setEnabled(false);
 
 
 //        chart.setDrawBorders(true);
 
-        chart.setPinchZoom(false);
-        chart.setDrawBarShadow(false);
-        chart.setDrawGridBackground(false);
-        seekBarX.setProgress(12);
+            chart.setPinchZoom(false);
+            chart.setDrawBarShadow(false);
+            chart.setDrawGridBackground(false);
+            seekBarX.setProgress(12);
 
-        Legend l = chart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(true);
-        l.setTypeface(tfLight);
-        l.setYOffset(0f);
-        l.setXOffset(10f);
-        l.setYEntrySpace(0f);
-        l.setTextSize(4f);
+            Legend l = chart.getLegend();
+            l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+            l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+            l.setOrientation(Legend.LegendOrientation.VERTICAL);
+            l.setDrawInside(true);
+            l.setTypeface(tfLight);
+            l.setYOffset(0f);
+            l.setXOffset(10f);
+            l.setYEntrySpace(0f);
+            l.setTextSize(4f);
 
-        final XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTypeface(tfLight);
-        xAxis.setGranularity(1f);
-        xAxis.setCenterAxisLabels(true);
+            final XAxis xAxis = chart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTypeface(tfLight);
+            xAxis.setGranularity(1f);
+            xAxis.setCenterAxisLabels(true);
 
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return super.getFormattedValue(value);
-            }
-        });
+            xAxis.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return super.getFormattedValue(value);
+                }
+            });
 
-        YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setTypeface(tfLight);
-        leftAxis.setValueFormatter(new LargeValueFormatter());
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setSpaceTop(35f);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+            YAxis leftAxis = chart.getAxisLeft();
+            leftAxis.setTypeface(tfLight);
+            leftAxis.setValueFormatter(new LargeValueFormatter());
+            leftAxis.setDrawGridLines(false);
+            leftAxis.setSpaceTop(35f);
+            leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        updateXAxis(12);
+            updateXAxis(12);
 
-        chart.getAxisRight().setEnabled(false);
-        return view;
+            chart.getAxisRight().setEnabled(false);
+            return view;
+        } catch (Exception ex) {
+            Log.e("ERROR", ex.getMessage());
+            return inflater.inflate(R.layout.fragment_month_statistic, container, false);
+        }
+
     }
 
     private void setDataSpinner() {
@@ -163,7 +169,7 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
             adapterCategory = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item);
             List<Integer> years = mViewModel.getYears();
             for (Integer year : years) {
-                adapterCategory.add("Năm " + String.valueOf(year));
+                adapterCategory.add(getResources().getString(R.string.statisctic_year) + String.valueOf(year));
             }
 
             adapterCategory.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -178,7 +184,7 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
         updateXAxis(groupCount);
         startMonth = 1;
         endMonth = startMonth + groupCount;
-        tvX.setText(progress + " tháng");
+        tvX.setText(progress + getResources().getString(R.string.statistic_month));
 
         MonthStatisticViewModel.DataBarChart data = mViewModel.loadDataBarChar();
         if (data != null) {
@@ -195,17 +201,37 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
     }
 
     private String[] getXLable(int numberOfMonth) {
+
+        String thang1 = getResources().getString(R.string.january);
+        String thang2 = getResources().getString(R.string.february);
+        String thang3 = getResources().getString(R.string.march);
+        String thang4 = getResources().getString(R.string.april);
+        String thang5 = getResources().getString(R.string.may);
+        String thang6 = getResources().getString(R.string.june);
+        String thang7 = getResources().getString(R.string.july);
+        String thang8 = getResources().getString(R.string.august);
+        String thang9 = getResources().getString(R.string.september);
+        String thang10 = getResources().getString(R.string.october);
+        String thang11 = getResources().getString(R.string.november);
+        String thang12 = getResources().getString(R.string.december);
+        String thang2_3 = getResources().getString(R.string.feb_mar);
+        String thang4_5 = getResources().getString(R.string.apr_may);
+        String thang6_7 = getResources().getString(R.string.jun_jul);
+        String thang8_9 = getResources().getString(R.string.aug_sep);
+        String thang10_11 = getResources().getString(R.string.oct_nov);
+
+
         switch (numberOfMonth) {
             case 9:
             case 10:
-                String[] months1 = new String[]{"Tháng 1", "", " Tháng 2 - 3", "", " Tháng 4 - 5", "", "Tháng 6 - 7", "", " Tháng 8 - 9", "", "Tháng 10"};
+                String[] months1 = new String[]{thang1, "", thang2_3, "", thang4_5, "", thang6_7, "", thang8_9, "", thang10};
                 return months1;
             case 11:
             case 12:
-                String[] months2 = new String[]{"Tháng 1", "", " Tháng 2 - 3", "", " Tháng 4 - 5", "", "Tháng 6 - 7", "", " Tháng 8 - 9", "", "Tháng 10 - 11", "", "Tháng 12"};
+                String[] months2 = new String[]{thang1, "", thang2_3, "", thang4_5, "", thang6_7, "", thang8_9, "", thang10_11, "", thang12};
                 return months2;
             default:
-                String[] months3 = new String[]{"", "Tháng 1", " Tháng 2", "Tháng 3", " Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", " Tháng 8"};
+                String[] months3 = new String[]{"", thang1, thang2, thang3, thang4, thang5, thang6, thang7, thang8};
                 return months3;
         }
     }
@@ -254,9 +280,9 @@ public class MonthStatisticFragment extends Fragment implements SeekBar.OnSeekBa
                 chart.notifyDataSetChanged();
 
             } else {
-                set1 = new BarDataSet(values1, "Thu nhập");
+                set1 = new BarDataSet(values1, getResources().getString(R.string.statisctics_income));
                 set1.setColor(Color.rgb(104, 241, 175));
-                set2 = new BarDataSet(values2, "Chi tiêu");
+                set2 = new BarDataSet(values2, getResources().getString(R.string.statistics_expense));
                 set2.setColor(Color.rgb(255, 102, 0));
 
                 BarData data = new BarData(set1, set2);

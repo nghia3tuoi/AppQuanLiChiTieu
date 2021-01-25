@@ -18,7 +18,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="THÊM KHOẢN CHI"
+        android:text="@string/add_expense_dialog_title"
         android:textColor="@color/grey_dam"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/category_expense"/>
+            android:text="@string/add_expense_dialog_category"/>
 
         <Spinner
             android:background="@drawable/background_edttext"
@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/time"></TextView>
+            android:text="@string/add_expense_income_dialog_time"></TextView>
 
         <EditText
             android:id="@+id/edtTime"
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/date"></TextView>
+            android:text="@string/add_expense_income_dialog_date"></TextView>
 
         <EditText
             android:id="@+id/edtDate"
@@ -111,7 +111,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/money_expense"/>
+            android:text="@string/add_expense_dialog_money"/>
 
         <EditText
             android:id="@+id/edtMoney"
@@ -139,7 +139,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/note"/>
+            android:text="@string/add_expense_income_note"/>
 
         <EditText
             android:id="@+id/edtNote"
@@ -176,7 +176,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
-            android:text="Trở lại"
+            android:text="@string/add_dialog_back"
             android:textColor="@color/colorTitle" />
 
         <Button
@@ -187,7 +187,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:text="Thêm"
+            android:text="@string/add_dialog_add"
             android:textColor="@color/colorTitle" />
     </LinearLayout>
 

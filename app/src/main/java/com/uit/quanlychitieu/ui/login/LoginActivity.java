@@ -139,8 +139,8 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 //        String name = "Bạn đã thêm các khoản thu, chi của bạn chưa?";
 //        String description = "Nhấn để mở ứng dụng";
 
-        String name = String.join(" ", "Chào mừng", displayName, "đã quay trở lại!");
-        String description = "Hôm nay bạn có các khoản thu, chi gì?";
+        String name = String.join(" ", getResources().getString(R.string.login_welcome), displayName, getResources().getString(R.string.returned));
+        String description = getResources().getString(R.string.notification_description);
 
 //        Intent intent = new Intent(this, MainActivity.class);
 //        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
@@ -231,15 +231,15 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
     // Thực hiện khi người dùng đăng nhập thành công
     @Override
-    public void onSuccess(String message) {
+    public void onSuccess(boolean message) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel();
         }
         saveUserInfo();
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_success), Toast.LENGTH_SHORT).show();
         mProgress = new ProgressDialog(LoginActivity.this);
-        mProgress.setMessage("Đang tải dữ liệu...");
+        mProgress.setMessage(getResources().getString(R.string.loading));
         mProgress.setCancelable(false);
         mProgress.show();
 
@@ -250,9 +250,8 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
     // Thực hiện khi người dùng đăng nhập thất bại
     @Override
-    public void onFailure(String message) {
-
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+    public void onFailure(boolean message) {
+        Toast.makeText(LoginActivity.this, getResources().getString(R.string.user_invalid), Toast.LENGTH_SHORT).show();
     }
 
     // Thực hiện khi người dùng nhấn vào Đăng ký

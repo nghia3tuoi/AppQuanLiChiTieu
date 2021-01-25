@@ -20,12 +20,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.uit.quanlychitieu.Language;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
 import com.uit.quanlychitieu.databinding.ActivityAddUserBinding;
@@ -52,8 +54,15 @@ public class AddUserActivity extends AppCompatActivity implements AddUserCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Language.setLanguage(AddUserActivity.this, LoginActivity.LANGUAGE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getResources().getString(R.string.add_user_title));
+        }
 
         ActivityAddUserBinding activityAddUserBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_user);
         addUserViewModel = new ViewModelProvider(this, new AddUserViewModelFactory(this)).get(AddUserViewModel.class);
@@ -97,7 +106,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserCallbac
                     imgUser.setImageBitmap(selectedImage);
                     bitmapByteArray = MainActivity.getBitmapAsByteArray(selectedImage);
                 } catch (Exception ex) {
-                    Toast.makeText(this, "Không thể tải hình ảnh!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.can_not_load_img), Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -111,7 +120,7 @@ public class AddUserActivity extends AppCompatActivity implements AddUserCallbac
         Toast.makeText(AddUserActivity.this, message, Toast.LENGTH_SHORT).show();
 
         mProgress = new ProgressDialog(AddUserActivity.this);
-        mProgress.setMessage("Thiết lập tài khoản của bạn...");
+        mProgress.setMessage(getResources().getString(R.string.set_account));
         mProgress.setCancelable(false);
         mProgress.show();
 
@@ -145,8 +154,8 @@ public class AddUserActivity extends AppCompatActivity implements AddUserCallbac
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
 
-        String name = String.join(" ", "Chào mừng bạn đến với ứng dụng quản lý chi tiêu");
-        String description = "Giờ đây, bạn đã có thể dễ dàng quản lý các khoản thu, chi của mình";
+        String name = getResources().getString(R.string.notification_name2);
+        String description = getResources().getString(R.string.notification_description2);
 
         int notifyID = 1;
         String CHANNEL_ID = "MY_CHANNEL";

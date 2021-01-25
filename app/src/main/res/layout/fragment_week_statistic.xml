@@ -30,7 +30,7 @@
                 android:layout_weight="1.5"
                 android:gravity="center"
                 android:textSize="14dp"
-                android:text="Ngày bắt đầu" />
+                android:text="@string/statistics_start_date" />
 
             <TextView
                 android:id="@+id/txtStartDate"

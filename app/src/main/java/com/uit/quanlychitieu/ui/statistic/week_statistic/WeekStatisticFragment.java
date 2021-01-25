@@ -83,7 +83,15 @@ public class WeekStatisticFragment extends Fragment implements WeekStatisticCall
 
     private void setAxits(int dayOfWeek) {
 
-        String[] dayOfWeeks = new String[]{"Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"};
+        String monday = getResources().getString(R.string.moday);
+        String tuesday = getResources().getString(R.string.tuesday);
+        String wednesday = getResources().getString(R.string.wednesday);
+        String thursday = getResources().getString(R.string.thursday);
+        String friday = getResources().getString(R.string.friday);
+        String saturday = getResources().getString(R.string.saturday);
+        String sunday = getResources().getString(R.string.sunday);
+
+        String[] dayOfWeeks = new String[]{sunday, monday, tuesday, wednesday, thursday, friday, saturday};
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(mTf);
@@ -129,7 +137,7 @@ public class WeekStatisticFragment extends Fragment implements WeekStatisticCall
             i++;
         }
 
-        LineDataSet d1 = new LineDataSet(values1, "Chi tiêu");
+        LineDataSet d1 = new LineDataSet(values1, getResources().getString(R.string.statistics_expense));
         d1.setLineWidth(2.5f);
         d1.setCircleRadius(4.5f);
         d1.setHighLightColor(Color.rgb(244, 117, 117));
@@ -143,7 +151,7 @@ public class WeekStatisticFragment extends Fragment implements WeekStatisticCall
             i++;
         }
 
-        LineDataSet d2 = new LineDataSet(values2, "Thu nhập");
+        LineDataSet d2 = new LineDataSet(values2, getResources().getString(R.string.statisctics_income));
         d2.setLineWidth(2.5f);
         d2.setCircleRadius(4.5f);
         d2.setHighLightColor(Color.rgb(244, 117, 117));

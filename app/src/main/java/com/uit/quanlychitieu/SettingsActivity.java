@@ -35,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(getResources().getString(R.string.menu_settings));
         }
 
     }
@@ -119,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Thông báo cài đặt đã được thay đổi, cần khởi động lại để áp dụng
         private void notificationText() {
-            Toast.makeText(getActivity(), "Khởi động lại để áp dụng cài đặt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.notify_restart_apply_settings), Toast.LENGTH_SHORT).show();
         }
     }
 }

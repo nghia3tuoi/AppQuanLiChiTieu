@@ -151,9 +151,9 @@ public class MainActivity extends AppCompatActivity {
             mAlarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
             AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            long interval = 5000;
+            long interval = 10000;
 
-            Toast.makeText(this, "Đã bật thông báo nhắc nhở", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.turn_on_notification), Toast.LENGTH_SHORT).show();
             manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + interval, interval, mAlarmIntent);
         }
     }
@@ -177,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
         final Button btnYes = dialog.findViewById(R.id.btnYes);
         final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-        txt_Titleconfirm.setText("Bạn có muốn thoát ứng dụng không?");
-        btnNo.setText("Trở lại");
-        btnYes.setText("Đống ý");
+        txt_Titleconfirm.setText(getResources().getString(R.string.main_question_exits));
+        btnNo.setText(getResources().getString(R.string.add_dialog_back));
+        btnYes.setText(getResources().getString(R.string.user_ok));
 
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -442,9 +442,9 @@ public class MainActivity extends AppCompatActivity {
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                                .setTitle("Quyền truy cập tập tin bị từ chối")
-                                .setMessage("Bạn cần cho phép quyền truy cập tập tin khi sử dụng ứng dụng.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                .setTitle(getResources().getString(R.string.notify_access_denied))
+                                .setMessage(getResources().getString(R.string.notify_advise))
+                                .setPositiveButton(getResources().getString(R.string.user_ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         MainActivity.this.finish();

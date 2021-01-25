@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Observable;
 
 public class DataStatisticViewModel extends ViewModel {
@@ -99,12 +100,16 @@ public class DataStatisticViewModel extends ViewModel {
     }
 
     private void caculate() {
+
+        Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+
         DataStatisticModel data = new DataStatisticModel(startDate, endDate);
         long moneyExpense = data.getSumMoneyExpense();
-        totalExpense = "- " + NumberFormat.getCurrencyInstance().format(moneyExpense);
+        totalExpense = "- " + currency.format(moneyExpense);
         long moneyIncome = data.getSumMoneyIncome();
-        totalIncome = "+ " + NumberFormat.getCurrencyInstance().format(moneyIncome);
+        totalIncome = "+ " + currency.format(moneyIncome);
         long lBalance = Math.abs(moneyExpense - moneyIncome);
-        balance = ((moneyExpense > moneyIncome) ? "- " : "+ ") + NumberFormat.getCurrencyInstance().format(lBalance);
+        balance = ((moneyExpense > moneyIncome) ? "- " : "+ ") + currency.format(lBalance);
     }
 }

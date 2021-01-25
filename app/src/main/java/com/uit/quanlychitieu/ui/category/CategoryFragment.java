@@ -73,9 +73,9 @@ public class CategoryFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "LOẠI CHI";
+                    return getResources().getString(R.string.category_expense_title);
                 case 1:
-                    return "LOẠI THU";
+                    return getResources().getString(R.string.category_income_title);
             }
             return null;
         }

@@ -35,7 +35,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Từ ngày"/>
+                    android:text="@string/statistics_from_date"/>
 
                 <TextView
                     android:id="@+id/txtFromDate"
@@ -73,7 +73,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center|left"
                     android:textSize="14dp"
-                    android:text="Đến ngày"/>
+                    android:text="@string/statistics_to_date"/>
 
                 <TextView
                     android:id="@+id/txtToDate"
@@ -110,7 +110,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/button_background"
                     android:onClick="@{viewModel::onClickResult}"
-                    android:text="Kết quả"
+                    android:text="@string/statistics_result"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -135,7 +135,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|left"
-                        android:text="Số tiền chi tiêu:"
+                        android:text="@string/statistics_money_expense"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -162,7 +162,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|left"
-                        android:text="Số tiền thu nhập:"
+                        android:text="@string/statistics_money_income"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -189,7 +189,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|left"
-                        android:text="Số tiền còn lại:"
+                        android:text="@string/statistics_money_remaining"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 

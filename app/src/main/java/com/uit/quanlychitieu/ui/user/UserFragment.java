@@ -121,7 +121,7 @@ public class UserFragment extends Fragment {
 
     private void displayUserInfo() {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd-mm-yyyy");
-        txtDisplayName.setText(user != null ? user.getDisplayName() : "Chào mừng!");
+        txtDisplayName.setText(user != null ? user.getDisplayName() : getResources().getString(R.string.user_welcomes));
         imgUser.setImageBitmap(user.bitmap);
     }
 
@@ -206,9 +206,9 @@ public class UserFragment extends Fragment {
             final Button btnYes = dialog.findViewById(R.id.btnYes);
             final Button btnNo = dialog.findViewById(R.id.btnNo);
 
-            txt_Titleconfirm.setText("Bạn có chắc chắn muốn xóa dữ liệu của mình không?");
-            btnNo.setText("Hủy bỏ");
-            btnYes.setText("Đồng ý");
+            txt_Titleconfirm.setText(getResources().getString(R.string.user_question_cleardata));
+            btnNo.setText(getResources().getString(R.string.expense_income_cancel));
+            btnYes.setText(getResources().getString(R.string.user_ok));
 
             btnNo.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -221,7 +221,7 @@ public class UserFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     mViewModel.clearDataUser();
-                    Toast.makeText(getActivity(), "Tất cả dữ liệu đã được xóa", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.user_all_data_deleted), Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                 }
             });
@@ -255,9 +255,9 @@ public class UserFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Thông tin người dùng";
+                    return getResources().getString(R.string.user_information);
                 case 1:
-                    return "Danh sách người dùng";
+                    return getResources().getString(R.string.user_list);
             }
             return null;
         }

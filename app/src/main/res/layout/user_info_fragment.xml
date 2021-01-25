@@ -136,7 +136,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center|bottom"
                 android:background="@drawable/button_background"
-                android:text="Xóa tài khoản"
+                android:text="@string/user_remove_account"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>

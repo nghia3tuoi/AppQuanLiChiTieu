@@ -27,7 +27,7 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:paddingLeft="10dp"
-                android:text="THÔNG TIN CHI TIẾT"
+                android:text="@string/detail_title"
                 android:textColor="@color/colorPrimary"
                 android:textSize="26dp"
                 android:textStyle="bold" />
@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Chạm vào đây để đóng"
+                android:text="@string/detail_touch_to_close"
                 android:textColor="@color/grey_dam"></TextView>
         </LinearLayout>
     </LinearLayout>

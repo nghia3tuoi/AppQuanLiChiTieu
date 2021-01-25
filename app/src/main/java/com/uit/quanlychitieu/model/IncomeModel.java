@@ -18,6 +18,7 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class IncomeModel extends BaseObservable {
     private int incomeId;
@@ -104,7 +105,9 @@ public class IncomeModel extends BaseObservable {
         timeFormated = timeFormat.format(time);
 
         //Định dạng tiền
-        moneyFormated = "+ " + NumberFormat.getCurrencyInstance().format(incomeMoney);
+        Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+        moneyFormated = "- " + currency.format(incomeMoney);
     }
 
     public IncomeModel(int incomeId, int categoryId, String incomeDate, String incomeTime, int incomeMoney, String note, int userId) {

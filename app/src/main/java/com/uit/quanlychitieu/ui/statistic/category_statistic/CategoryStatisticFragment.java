@@ -154,7 +154,7 @@ public class CategoryStatisticFragment extends Fragment implements ActivityCompa
             entries.add(new PieEntry(values[i], parties[i], null));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Danh mục");
+        PieDataSet dataSet = new PieDataSet(entries, getResources().getString(R.string.statistic_category));
 
         dataSet.setDrawIcons(false);
         dataSet.setSliceSpace(3f);
@@ -201,9 +201,9 @@ public class CategoryStatisticFragment extends Fragment implements ActivityCompa
 
     private SpannableString generateCenterSpannableText() {
         //Định dạng ngày tháng
-        String type = mViewModel.getType().equals("ChiTieu") ? "Chi tiêu" : "Thu nhập";
-        StringBuilder period = new StringBuilder("Từ ");
-        period.append(mViewModel.getStartDate()).append(" đến ").append(mViewModel.getEndDate());
+        String type = mViewModel.getType().equals("ChiTieu") ? getResources().getString(R.string.statistics_expense) : getResources().getString(R.string.statisctics_income);
+        StringBuilder period = new StringBuilder(getResources().getString(R.string.statistics_from) + " ");
+        period.append(mViewModel.getStartDate()).append(" " + getResources().getString(R.string.statistics_to) + " ").append(mViewModel.getEndDate());
         SpannableString s = new SpannableString(type + "\n" + period);
         s.setSpan(new RelativeSizeSpan(1.7f), 0, type.length(), 0);
         s.setSpan(new StyleSpan(Typeface.NORMAL), type.length(), s.length() - type.length() + 1, 0);
