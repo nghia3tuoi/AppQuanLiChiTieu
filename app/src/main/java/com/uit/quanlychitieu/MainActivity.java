@@ -1,39 +1,34 @@
 package com.uit.quanlychitieu;
 
-import android.app.DatePickerDialog;
+import android.Manifest;
+import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.app.TimePickerDialog;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableArrayList;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -41,43 +36,38 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
-import com.uit.quanlychitieu.adapter.ExpenseItemAdapter;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.uit.quanlychitieu.model.CategoryModel;
 import com.uit.quanlychitieu.model.ExpenseModel;
 import com.uit.quanlychitieu.model.IncomeModel;
 import com.uit.quanlychitieu.model.UserModel;
-import com.uit.quanlychitieu.ui.category.CategoryFragment;
-import com.uit.quanlychitieu.ui.expense.ExpenseFragment;
-import com.uit.quanlychitieu.ui.income.IncomeFragment;
-import com.uit.quanlychitieu.ui.user.UserFragment;
+import com.uit.quanlychitieu.ui.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Observable;
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
+
     // Người dùng đăng nhập hiện tại
     public static int USER_ID = 1;
+
+    private PendingIntent mAlarmIntent;
 
     // Tên cở sở dữ liệu
     public static String DATABASE_NAME = "QuanLyChiTieu.db";
@@ -96,14 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-
-    private Handler handler;
-    private ProgressDialog progress;
-    private Context context;
+    //Quảng cáo dưới màn hình
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Language.setLanguage(MainActivity.this, LoginActivity.LANGUAGE);
         MainActivity.super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -125,11 +114,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_expense, R.id.nav_income, R.id.nav_statistic, R.id.nav_user,
-                R.id.nav_backup_and_restore, R.id.nav_category_spending)
+                R.id.nav_expense, R.id.nav_income, R.id.nav_statistic,
+                R.id.nav_user, R.id.nav_category_spending)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
@@ -151,6 +139,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        requestPermissions();
+        initAd();
+        setNotificationReminder();
+    }
+
+    private void setNotificationReminder() {
+        if (LoginActivity.isNotification) {
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            mAlarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            long interval = 5000;
+
+            Toast.makeText(this, "Đã bật thông báo nhắc nhở", Toast.LENGTH_SHORT).show();
+            manager.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + interval, interval, mAlarmIntent);
+        }
     }
 
     @Override
@@ -307,9 +312,6 @@ public class MainActivity extends AppCompatActivity {
         String columnName = "";
         switch (nameTable) {
             case "DanhMucThuNhap":
-                columnName = "ImageCategory";
-                idName = "CategoryId";
-                break;
             case "DanhMucChiTieu":
                 columnName = "ImageCategory";
                 idName = "CategoryId";
@@ -386,6 +388,72 @@ public class MainActivity extends AppCompatActivity {
         }
         cursor.close();
         return userList;
+    }
+
+    //Khởi tạo quảng có
+    private void initAd() {
+        adView = findViewById(R.id.ad_view);
+        if (LoginActivity.isDisplayAd) {
+            MobileAds.initialize(this, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                }
+            });
+            MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345")).build());
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+        } else {
+            adView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
+    }
+
+    private void requestPermissions() {
+        //Yêu cầu Permission tại đây.
+        final RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.
+                request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                                .setTitle("Quyền truy cập tập tin bị từ chối")
+                                .setMessage("Bạn cần cho phép quyền truy cập tập tin khi sử dụng ứng dụng.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        MainActivity.this.finish();
+                                    }
+                                }).setCancelable(false);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
     }
 }
 

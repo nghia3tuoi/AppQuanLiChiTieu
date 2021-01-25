@@ -1,2 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Spending Manager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="toolbar_title">Spending manager</string>
+    <string name="title_spending_manage">Spending Manager</string>
+    <string name="menu_expense">Expense</string>
+    <string name="menu_income">Income</string>
+    <string name="menu_statistics">Statistics</string>
+    <string name="title_backup_and_restore">Data</string>
+    <string name="menu_backup">Backup</string>
+    <string name="menu_restore">Restore</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_user">User</string>
+    <string name="menu_category_spending">Category manager</string>
+    <string name="currcency">Currcency</string>
+    <string name="currcency_description">Select your currency</string>
+    <string name="reminder">Reminder</string>
+    <string name="reminder_description">Reminder description</string>
+    <string name="language">Language</string>
+    <string name="language_description">Select language</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="copy_success">Copy success</string>
+    <string name="ad_title">Ad in app</string>
+    <string name="ad_description">Ad description</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="categoty_name">Category name</string>
+    <string name="date_time_sample">01-01-2020</string>
+    <string name="note">Ghi chú</string>
+    <string name="money_expense_sample">- 10.000 VNĐ</string>
+    <string name="money_income_sample">+ 10.000 VNĐ</string>
+    <string name="no_category">No category</string>
+    <string name="expense_title">Expense manager</string>
+    <string name="income_title">Income manager</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="backup_title">Backup</string>
+    <string name="backup_and_restore_title">Backup and restore</string>
+    <string name="restore_title">Restore</string>
+    <string name="user_title">User</string>
+    <string name="add_expense_title">Add expense</string>
+    <string name="add_income_title">Add Income</string>
+    <string name="caterogy_title">Caterogy manager</string>
+
+    <!--    Màn hình Người dùng-->
+    <string name="title_user_info">User information</string>
+    <string name="display_user_name_sample">Đinh Văn Cơ</string>
+    <string name="user_sample">dinhco01</string>
+    <string name="date_add_sample">01-01-2021</string>
+    <string name="remove_user">Delete user</string>
+    <string name="change_info">Edit information</string>
+    <string name="title_list_user">List user</string>
+    <string name="title_user_name">Username: </string>
+    <string name="title_date_add">Date add: </string>
+    <string name="title_date_modify">Date modify: </string>
+    <string name="no_user">No user!</string>
+    <string name="edit_user">edit information</string>
+    <string name="user_info">User information</string>
+
+    <string name="avartar">Avatar</string>
+    <string name="user_name">Username</string>
+    <string name="user_display_name">Display name</string>
+    <string name="email">Email</string>
+    <string name="email_sample">1952293@gm.uit.edu.vn</string>
+    <string name="change_password">Change password</string>
+
+    <string name="add_user">Add user</string>
+
+    <string name="category_expense">Categoty expense</string>
+    <string name="category_income">Category Income</string>
+    <string name="money_expense">Money Expense</string>
+    <string name="money_income">Money Income</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="unit_currency">VNĐ</string>
+    <string name="default_language">Vietnamese</string>
+    <string name="title_activity_settings2">Settings</string>
+    <string name="save_info">Save information</string>
+    <string name="register">Register</string>
+    <string name="spending_manage_title_login">SPENDING MANAGE</string>
+    <string name="login_title_login">LOGIN</string>
+    <string name="username_login">Username</string>
+    <string name="password_login">Password</string>
+
+</resources>

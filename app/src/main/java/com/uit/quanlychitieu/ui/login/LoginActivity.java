@@ -13,17 +13,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.uit.quanlychitieu.Language;
 import com.uit.quanlychitieu.ui.user.adduser.AddUserActivity;
 import com.uit.quanlychitieu.MainActivity;
 import com.uit.quanlychitieu.R;
@@ -34,10 +41,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
-    private ImageView imgLogo;
+    public final static String TAG = "LoginActivity";
+
+    //thông tin cài đặt ứng dụng mặc định
+    public static String LANGUAGE = "vn";
+    public static boolean isDisplayAd = false;
+    public static boolean isNotification = false;
+
     private ProgressDialog mProgress;
     private CheckBox chkSaveInfo;
 
@@ -55,7 +69,8 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        getSettingsInfo();
+        Language.setLanguage(LoginActivity.this, LoginActivity.LANGUAGE);
         setTheme(R.style.Theme_QuanLyChiTieu_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -67,9 +82,6 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
         ActivityLoginBinding activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(this)).get(LoginViewModel.class);
         activityLoginBinding.setViewModel(loginViewModel);
-
-        imgLogo = findViewById(R.id.imgLogo);
-        imgLogo.setImageResource(R.drawable.iconapp);
 
         chkSaveInfo = findViewById(R.id.chkSave);
         getUserInfo();
@@ -177,6 +189,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
 
     //Copy cở sở dữ liệu từ project đến dứng dụng nếu không tồn tại
     private void processCopy() {
+        Log.d(TAG, "processCopy: ");
         try {
             File dbFile = getDatabasePath(DATABASE_NAME);
             if (!dbFile.exists()) {
@@ -230,9 +243,8 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
         mProgress.setCancelable(false);
         mProgress.show();
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("USER_ID", USER_ID_LOGIN);
-
         startActivity(intent);
     }
 
@@ -248,5 +260,22 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
     public void onRegister() {
         Intent intent = new Intent(LoginActivity.this, AddUserActivity.class);
         startActivity(intent);
+    }
+
+
+    //Lấy thông tin cài đặt
+    private void getSettingsInfo() {
+
+        Log.e(TAG, "getSettingsInfo: ");
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
+        if (sharedPreferences == null) {
+            return;
+        }
+        String language = sharedPreferences.getString("language", "vn");
+        boolean reminder = sharedPreferences.getBoolean("reminder", false);
+        boolean advertise = sharedPreferences.getBoolean("advertise", false);
+        LANGUAGE = language;
+        isNotification = reminder;
+        isDisplayAd = advertise;
     }
 }

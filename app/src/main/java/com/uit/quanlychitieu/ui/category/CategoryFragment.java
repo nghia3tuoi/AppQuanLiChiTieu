@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.uit.quanlychitieu.R;
-import com.uit.quanlychitieu.ui.backupandrestore.BackupAndRestoreViewModel;
 import com.uit.quanlychitieu.ui.category.expense_manager.CategoryExpenseFragment;
 import com.uit.quanlychitieu.ui.category.income_manager.CategoryIncomeFragment;
 
@@ -31,8 +30,8 @@ public class CategoryFragment extends Fragment {
     private CategoryViewModel mViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CategoryViewModel.class);
+
+        mViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(CategoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_category, container, false);
 
         sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());

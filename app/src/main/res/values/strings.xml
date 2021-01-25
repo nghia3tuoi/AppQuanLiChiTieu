@@ -34,7 +34,7 @@
     <string name="ad_description">Xem quảng cáo để hỗ trợ chúng tôi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="categoty_name">Tên danh mục</string>
     <string name="date_time_sample">01-01-2020</string>
     <string name="note">Ghi chú</string>
@@ -83,4 +83,13 @@
     <string name="date">Ngày tháng</string>
     <string name="time">Thời gian</string>
     <string name="unit_currency">VNĐ</string>
+    <string name="default_language">Tiếng Việt</string>
+    <string name="title_activity_settings2">Cài đặt</string>
+    <string name="save_info">Lưu thông tin</string>
+    <string name="register">Đăng ký</string>
+    <string name="spending_manage_title_login">QUẢN LÝ CHI TIÊU</string>
+    <string name="login_title_login">ĐĂNG NHẬP</string>
+    <string name="username_login">Tên người dùng</string>
+    <string name="password_login">Mật khẩu</string>
+
 </resources>

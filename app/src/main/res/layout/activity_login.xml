@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.uit.quanlychitieu.ui.login.LoginViewModel" />
@@ -26,14 +28,14 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                tools:srcCompat="@drawable/iconapp" />
+                android:src="@drawable/iconapp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="QUẢN LÝ CHI TIÊU"
+                android:text="@string/spending_manage_title_login"
                 android:textColor="@color/colorPrimary"
                 android:textSize="28dp"
                 android:textStyle="bold" />
@@ -67,7 +69,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="ĐĂNG NHẬP"
+                        android:text="@string/login_title_login"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -83,7 +85,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:hint="Tên người dùng"
+                            android:hint="@string/username_login"
                             app:boxStrokeWidth="2dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -93,8 +95,8 @@
                                 android:drawableRight="@drawable/ic_baseline_user_24"
                                 android:drawableTint="@color/colorPrimary"
                                 android:maxLines="1"
-                                android:text="@={viewModel.username}"
                                 android:paddingLeft="20dp"
+                                android:text="@={viewModel.username}"
                                 android:textSize="16dp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +111,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:hint="Mật khẩu">
+                            android:hint="@string/password_login">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edtPassword"
@@ -119,8 +121,8 @@
                                 android:drawableTint="@color/colorPrimary"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
-                                android:text="@={viewModel.password}"
                                 android:paddingLeft="20dp"
+                                android:text="@={viewModel.password}"
                                 android:textSize="16dp" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
@@ -133,7 +135,7 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingRight="15dp"
-                        android:text="Lưu thông tin"
+                        android:text="@string/save_info"
                         android:textColor="@color/grey_dam"
                         android:textSize="16dp" />
 
@@ -162,9 +164,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="6"
                     android:gravity="center|left"
-                    android:paddingLeft="20dp"
-                    android:text="Đăng ký"
                     android:onClick="@{viewModel::onClickRegister}"
+                    android:paddingLeft="20dp"
+                    android:text="@string/register"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -176,8 +178,8 @@
                     android:layout_margin="10dp"
                     android:layout_weight="4"
                     android:background="@drawable/button_background"
-                    android:text="Đăng nhập"
                     android:onClick="@{viewModel::onClickButtonLogin}"
+                    android:text="@string/login_title_login"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
