@@ -172,7 +172,7 @@
     <string name="jun_jul">Tháng 6 -7</string>
     <string name="aug_sep">Tháng 8 - 9</string>
     <string name="oct_nov">Tháng 10 - 11</string>
-    <string name="statisctic_year">Năm</string>
+    <string name="statisctic_year">"Năm "</string>
     <string name="statistics_from">Từ</string>
     <string name="statistics_to">đến</string>
     <string name="user_total_expense">Tổng chi</string>

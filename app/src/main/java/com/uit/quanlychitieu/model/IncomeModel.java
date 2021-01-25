@@ -107,7 +107,7 @@ public class IncomeModel extends BaseObservable {
         //Định dạng tiền
         Locale locale = new Locale.Builder().setLanguage("vi").setRegion("VN").build();
         NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
-        moneyFormated = "- " + currency.format(incomeMoney);
+        moneyFormated = "+ " + currency.format(incomeMoney);
     }
 
     public IncomeModel(int incomeId, int categoryId, String incomeDate, String incomeTime, int incomeMoney, String note, int userId) {

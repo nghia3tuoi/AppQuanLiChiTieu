@@ -265,16 +265,22 @@ public class LoginActivity extends AppCompatActivity implements LoginCallbacks {
     //Lấy thông tin cài đặt
     private void getSettingsInfo() {
 
-        Log.e(TAG, "getSettingsInfo: ");
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        if (sharedPreferences == null) {
-            return;
+        try {
+
+
+            Log.e(TAG, "getSettingsInfo: ");
+            SharedPreferences sharedPreferences = getSharedPreferences("Settings", MODE_PRIVATE);
+            if (sharedPreferences == null) {
+                return;
+            }
+            String language = sharedPreferences.getString("language", "vn");
+            boolean reminder = sharedPreferences.getBoolean("reminder", false);
+            boolean advertise = sharedPreferences.getBoolean("advertise", false);
+            LANGUAGE = language;
+            isNotification = reminder;
+            isDisplayAd = advertise;
+        } catch (Exception ex) {
+
         }
-        String language = sharedPreferences.getString("language", "vn");
-        boolean reminder = sharedPreferences.getBoolean("reminder", false);
-        boolean advertise = sharedPreferences.getBoolean("advertise", false);
-        LANGUAGE = language;
-        isNotification = reminder;
-        isDisplayAd = advertise;
     }
 }
