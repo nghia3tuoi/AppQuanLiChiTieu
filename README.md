@@ -10,25 +10,29 @@ Thống kê số liệu để từ đó bạn có thể điều chỉnh mức ch
 ### Menu ứng dụng
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=1cdMZoCWxgHslT5MS-PMJgWJ2Tx7AfAZI">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/menu_app.png">
 </p>
 
 ### Đăng nhập / Đăng ký
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=1t_p4LKjUvVcNyBMfkl4Eju7a-4YzMA58">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/login_register.png">
+</p>
+
+<p align="center">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/login_register.png">
 </p>
 
 ### Quản lý các khoản Chi tiêu
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=12-pYAdXCAuowqgsTkreOnq5JX-HezzM6">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/expense.png">
 </p>
 
 ### Quản lý các khoản Thu nhập
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=1HIKTjRimjKQ2VNiiz7fUUkWG3XrxTVWJ">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/income.png">
 </p>
 
 ### Quản lý danh mục
@@ -44,21 +48,21 @@ Thống kê số liệu để từ đó bạn có thể điều chỉnh mức ch
 ### Thống kê dữ liệu
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=1-bWIV7roPcgzlGxQ3Z2bXkn-Ld7Dla24">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/data_chart_1.png">
 </p>
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=1Q3EVlLejKD-ukhoVWUhQNqQJ9tG9tQ_7">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/data_chart_2.png">
 </p>
 
 ### Quản lý người dùng
 
 <p align="center">
-    <img src="https://drive.google.com/uc?id=11pp4DUK5aUwT9R3V8S9XYhQZ25EKDeYC">
+    <img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/user_manage_1.png">
 </p>
 
 <p align="center">
-<img src="https://drive.google.com/uc?id=16xhcoOPw9coGAZ9zWm19uwdHdzQxkQGK">
+<img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/user_manage_2.png">
   </p>
 
 ## Yêu cầu thiết bị
