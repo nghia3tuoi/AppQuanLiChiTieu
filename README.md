@@ -38,11 +38,11 @@ Thống kê số liệu để từ đó bạn có thể điều chỉnh mức ch
 ### Quản lý danh mục
 
 <p align="center">
-<img src="https://drive.google.com/uc?id=15c69F4xGzHlMdnvRot7-gIA2RL41QTrT">
+<img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/category_expense.png">
   </p>
 
 <p align="center">
-<img src="https://drive.google.com/uc?id=11hSV3sk2OqJTSKIt4ljLj-v_EAqXFKzs">
+<img src="https://github.com/dinhco01/QuanLyChiTieu/blob/main/Screen/category_income.png">
   </p>
 
 ### Thống kê dữ liệu
