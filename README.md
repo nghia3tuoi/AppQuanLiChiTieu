@@ -73,4 +73,4 @@ Tất cả các thiết bị chạy Android 7.0 trở lên
 
 Đinh Văn Cơ - 19521293@gm.uit.edu.vn
 
-Trần Thị Thủy Tiên - 19521018@g.uit.edu.vn
+Trần Thị Thủy Tiên - 19521018@gm.uit.edu.vn
