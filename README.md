@@ -73,8 +73,4 @@ Tất cả các thiết bị chạy Android 7.0 trở lên
 
 [Thư viện MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
-## Tác giả
 
-Đinh Văn Cơ - 19521293@gm.uit.edu.vn
-
-Trần Thị Thủy Tiên - 19521018@gm.uit.edu.vn
